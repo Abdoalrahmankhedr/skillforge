@@ -3,12 +3,27 @@
 ### Table of Content
 
 - [Assignment](#assignment)
+- [Project Structure](#structure)
 - [Team Members](#team)
 
 ### Assignment
 The requirements requested by the TAs is listed in the instructions included in this [folder](https://drive.google.com/drive/folders/1pXy8D4GZraGVCDCukFT9icM4vS8yn_qQ).
 
 Refer to it to check the completion of this project.
+
+### Structure
+```txt
+├─── src
+    ├─── databases
+    ├─── models
+    ├─── pages
+    ├─── resources
+    ├─── security
+    └─── windows
+         └─── MainWindow
+    └─── Main
+└─── README.md
+```
 
 ### Team
 - [Andrew Sameh Adel Mikhail](https://github.com/acskii) - ID **9489**
