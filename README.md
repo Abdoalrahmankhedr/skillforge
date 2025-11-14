@@ -15,10 +15,26 @@ Refer to it to check the completion of this project.
 ```txt
 ├─── src
     ├─── databases
+         ├─── Database
+         ├─── UserDatabase
+         └─── CourseDatabase
     ├─── models
+         ├─── Model
+         ├─── Course
+         ├─── Lesson
+         ├─── User
+         ├─── Student
+         └─── Instructor
     ├─── pages
     ├─── resources
+         ├─── icon.png
+         ├─── users.json
+         └─── courses.json
     ├─── security
+         └─── PasswordService
+    ├─── services
+         ├─── StudentService
+         └─── InstructorService
     └─── windows
          └─── MainWindow
     └─── Main
@@ -27,6 +43,9 @@ Refer to it to check the completion of this project.
 
 ### Team
 - [Andrew Sameh Adel Mikhail](https://github.com/acskii) - ID **9489**
+    
+  - Repository Merger & Owner
+  - Database & Service Layer
 
 - [Abdoalrahman Khedr](https://github.com/Abdoalrahmankhedr) - ID **9624**
 
