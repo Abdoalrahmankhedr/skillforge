@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class PasswordService {
+public class pPasswordService {
     private static String convertToSHA256Hash(String password) throws NoSuchAlgorithmException {
         /* Method to convert a string into a hash using SHA256 encryption */
         MessageDigest digest = MessageDigest.getInstance("SHA-256");

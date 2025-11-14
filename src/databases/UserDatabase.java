@@ -3,6 +3,22 @@ package databases;
 import models.User;
 import security.PasswordService;
 
+// Andrew :)
+
+/*
+    Please refer to the documentation of Database<T> for detailed information.
+
+    Database class for all User subclasses.
+    Stores all data in JSON file ("src/resources/users.json")
+
+    This database can:
+        - get user records          -> getRecords()
+        - delete users              -> deleteUser()
+        - add new users             -> addUser()
+        - update user information   -> updateUser()
+        - verify login credentials  -> login()
+*/
+
 public class UserDatabase extends Database<User> {
     public UserDatabase(String filename) {
         super(filename, User.class);
@@ -11,6 +27,14 @@ public class UserDatabase extends Database<User> {
 
     public void deleteUser(int id) {deleteRecord(id);}
     public User getUserById(int id) {return getRecordById(id);}
+
+    public User getUserByEmail(String email) {
+        for (User user : getRecords()) {
+            if (user.getEmail().equals(email)) return user;
+        }
+
+        return null;
+    }
 
     public void addUser(String name, String email, String password, String role) {
         User user = new User();
@@ -48,5 +72,11 @@ public class UserDatabase extends Database<User> {
         insertRecord(user);
     }
 
-    // TODO: login
+    public Boolean login(String email, String password) {
+        /* Returns null if user doesn't exist, else true/false based on whether the password is matching */
+        User user = getUserByEmail(email);
+        if (user != null) {
+            return PasswordService.compare(user.getPassword(), PasswordService.encode(password));
+        } else return null;
+    }
 }

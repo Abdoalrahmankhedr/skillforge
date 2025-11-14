@@ -1,5 +1,7 @@
 package models;
 
+// Andrew :)
+
 public class User implements Model {
     private int id;
     private String password;

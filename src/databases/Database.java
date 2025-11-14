@@ -1,7 +1,6 @@
 package databases;
 
 import models.Model;
-import models.User;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -13,6 +12,19 @@ import java.util.List;
 
 /*
     Parent abstract class for all databases
+    It keeps track of current ID, and increments on it. This means that IDing is automatic
+
+    This class provides base methods for all databases:
+        - getRecords()      -> Returns all records within JSON file
+        - deleteRecord()    -> Deletes a record based on its ID
+        - getRecordById()   -> Get a specific record using an ID
+
+    Most importantly,
+        - readFile()    -> This is called whenever you need to refresh the database memory with data stored
+                            within the JSON file. This is always called on initialisation.
+        - saveToFile()  -> This is called whenever you need to save any changes made using the previously mentioned
+                            record methods. If not used on program termination, any changes made on runtime
+                            WILL NOT be saved.
 */
 
 public abstract class Database<T extends Model> {

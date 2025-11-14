@@ -7,6 +7,12 @@ import java.util.List;
 
 // Andrew :)
 
+/*
+    Please refer to the documentation of Database<T> for detailed information.
+
+
+*/
+
 public class CourseDatabase extends Database<Course> {
     private int lessonIndex = 1;
 
@@ -24,7 +30,37 @@ public class CourseDatabase extends Database<Course> {
     }
 
     public void deleteCourse(int id) {deleteRecord(id);}
+    public void deleteLesson(int id) {
+        for (Course c : getRecords()) {
+            for (Lesson l : c.getLessons()) {
+                if (l.getId() == id) {
+                    List<Lesson> ls = c.getLessons();
+                    ls.removeIf((t) -> t.getId() == id);
+                    c.setLessons(ls);
+                }
+            }
+        }
+    }
+
     public Course getCourseById(int id) {return getRecordById(id);}
+
+    public Course getCourseByLesson(int lessonId) {
+        for (Course c : getRecords()) {
+            for (Lesson l : c.getLessons()) {
+                if (l.getId() == lessonId) return c;
+            }
+        }
+        return null;
+    }
+
+    public Lesson getLessonById(int id) {
+        for (Course c : getRecords()) {
+            for (Lesson l : c.getLessons()) {
+                if (l.getId() == id) return l;
+            }
+        }
+        return null;
+    }
 
     public void addCourse(String title, int instructorId, List<Lesson> lessons) {
         Course course = new Course();
@@ -50,6 +86,15 @@ public class CourseDatabase extends Database<Course> {
         updateCourse(courseId, course.getTitle(), newLessons);
     }
 
+    public void addLesson(int courseId, Lesson lesson) {
+        /* Insert new lesson into an existing course */
+        Course course = getRecordById(courseId);
+        List<Lesson> newLessons = course.getLessons();
+        newLessons.add(lesson);
+
+        updateCourse(courseId, course.getTitle(), newLessons);
+    }
+
     public void updateCourse(int id, String title, List<Lesson> lessons) {
         Course course = getRecordById(id);
         if (course == null) {
@@ -67,5 +112,21 @@ public class CourseDatabase extends Database<Course> {
         insertRecord(course);
     }
 
-    // TODO: update lesson with student progress
+    public void updateLesson(Lesson lesson) {
+        Course course = getCourseByLesson(lesson.getId());
+        deleteLesson(lesson.getId());
+        addLesson(course.getId(), lesson);
+    }
+
+    public void startLesson(int studentId, int lessonId) {
+        Lesson lesson = getLessonById(lessonId);
+        lesson.addStudent(studentId);
+        updateLesson(lesson);
+    }
+
+    public void completeLesson(int studentId, int lessonId) {
+        Lesson lesson = getLessonById(lessonId);
+        lesson.markAsComplete(studentId);
+        updateLesson(lesson);
+    }
 }
