@@ -112,6 +112,11 @@ public class CourseDatabase extends Database<Course> {
         insertRecord(course);
     }
 
+    public void updateCourse(Course course) {
+        if (getCourseById(course.getId()) != null) deleteCourse(course.getId());
+        insertRecord(course);
+    }
+
     public void updateLesson(Lesson lesson) {
         Course course = getCourseByLesson(lesson.getId());
         deleteLesson(lesson.getId());
@@ -128,5 +133,11 @@ public class CourseDatabase extends Database<Course> {
         Lesson lesson = getLessonById(lessonId);
         lesson.markAsComplete(studentId);
         updateLesson(lesson);
+    }
+
+    public void enroll(int studentId, int courseId) {
+        Course course = getRecordById(courseId);
+        course.enrollStudent(studentId);
+        updateCourse(course);
     }
 }
