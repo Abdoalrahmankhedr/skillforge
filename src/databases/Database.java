@@ -28,7 +28,7 @@ import java.util.List;
 */
 
 public abstract class Database<T extends Model> {
-    protected String logName;
+    protected final String logName;
     protected final String filename;
     protected final Class<T> classType;
     protected final ObjectMapper mapper = new ObjectMapper();
@@ -38,6 +38,7 @@ public abstract class Database<T extends Model> {
     public Database(String filename, Class<T> type) {
         this.filename = filename;
         this.classType = type;
+        this.logName = this.getClass().getSimpleName();
 
         readFile();
         this.index = this.records.size();
@@ -99,6 +100,4 @@ public abstract class Database<T extends Model> {
         File file = new File(this.filename);
         this.mapper.writeValue(file, records);
     }
-
-
 }

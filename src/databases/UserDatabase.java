@@ -22,7 +22,6 @@ import security.PasswordService;
 public class UserDatabase extends Database<User> {
     public UserDatabase(String filename) {
         super(filename, User.class);
-        this.logName = "UserDatabase";
     }
 
     public void deleteUser(int id) {deleteRecord(id);}

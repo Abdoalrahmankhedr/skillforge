@@ -18,8 +18,6 @@ public class CourseDatabase extends Database<Course> {
 
     public CourseDatabase(String filename) {
         super(filename, Course.class);
-        this.logName = "CourseDatabase";
-
 
         /* Determines the most recent ID for all lessons */
         for (Course c : this.records) {
