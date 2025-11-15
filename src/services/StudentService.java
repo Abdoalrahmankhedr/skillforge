@@ -44,6 +44,7 @@ public class StudentService {
         student.setId(user.getId());
         student.setEmail(user.getEmail());
         student.setPassword(user.getPassword());
+        student.setName(user.getName());
         student.setRole("Student");
 
         return student;
