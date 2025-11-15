@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 */
 
 public class StudentService {
-    private static final CourseDatabase courseDb = new CourseDatabase("src/resources/courses.json");
-    private static final UserDatabase userDb = new UserDatabase("src/resources/users.json");
+    private static final CourseDatabase courseDb = CourseDatabase.getInstance();
+    private static final UserDatabase userDb = UserDatabase.getInstance();
 
     public static Student getStudent(int studentId) {
         User user = userDb.getUserById(studentId);

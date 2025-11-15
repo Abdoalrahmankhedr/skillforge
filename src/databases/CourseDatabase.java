@@ -15,8 +15,9 @@ import java.util.List;
 
 public class CourseDatabase extends Database<Course> {
     private int lessonIndex = 1;
+    private static CourseDatabase instance;
 
-    public CourseDatabase(String filename) {
+    private CourseDatabase(String filename) {
         super(filename, Course.class);
 
         /* Determines the most recent ID for all lessons */
@@ -25,6 +26,14 @@ public class CourseDatabase extends Database<Course> {
                 this.lessonIndex = Math.max(l.getId(), this.lessonIndex);
             }
         }
+    }
+
+    public static CourseDatabase getInstance() {
+        /* To ensure the database would stay consistent on data change */
+        if (instance == null) {
+            instance = new CourseDatabase("src/resources/courses.json");
+        }
+        return instance;
     }
 
     public void deleteCourse(int id) {deleteRecord(id);}
@@ -113,6 +122,7 @@ public class CourseDatabase extends Database<Course> {
     public void updateCourse(Course course) {
         if (getCourseById(course.getId()) != null) deleteCourse(course.getId());
         insertRecord(course);
+        saveToFile();
     }
 
     public void updateLesson(Lesson lesson) {

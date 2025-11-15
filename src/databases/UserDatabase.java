@@ -20,8 +20,18 @@ import security.PasswordService;
 */
 
 public class UserDatabase extends Database<User> {
-    public UserDatabase(String filename) {
+    private static UserDatabase instance;
+
+    private UserDatabase(String filename) {
         super(filename, User.class);
+    }
+
+    public static UserDatabase getInstance() {
+        /* To ensure the database would stay consistent on data change */
+        if (instance == null) {
+            instance = new UserDatabase("src/resources/users.json");
+        }
+        return instance;
     }
 
     public void deleteUser(int id) {deleteRecord(id);}
@@ -35,15 +45,20 @@ public class UserDatabase extends Database<User> {
         return null;
     }
 
-    public void addUser(String name, String email, String password, String role) {
-        User user = new User();
-        user.setId(++this.index);
-        user.setRole(role);     // Validation needed here
-        user.setName(name);
-        user.setEmail(email);   // Validation needed here
-        user.setPassword(PasswordService.encode(password));
+    public boolean addUser(String name, String email, String password, String role) {
+        if (getUserByEmail(email) == null) {
+            User user = new User();
+            user.setId(++this.index);
+            user.setRole(role);     // Validation needed here
+            user.setName(name);
+            user.setEmail(email);   // Validation needed here
+            user.setPassword(PasswordService.encode(password));
 
-        insertRecord(user);
+            insertRecord(user);
+            return true;
+        }
+
+        return false;
     }
 
     public void updateUser(int id, String name, String email, String password, String role) {
