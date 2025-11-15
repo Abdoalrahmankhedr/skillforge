@@ -1,5 +1,5 @@
 [ {
-  "enrolledStudents" : [ 1, 2, 8, 9 ],
+  "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
   "id" : 2,
   "instructorId" : 4,
   "lessons" : [ {
@@ -9,7 +9,9 @@
       "1" : true,
       "2" : false,
       "8" : true,
-      "9" : true
+      "9" : true,
+      "10" : false,
+      "11" : false
     },
     "title" : "Calculus Fundamentals"
   }, {
@@ -19,47 +21,39 @@
       "1" : false,
       "2" : false,
       "8" : true,
-      "9" : true
+      "9" : true,
+      "10" : false,
+      "11" : false
     },
     "title" : "Linear Algebra"
   } ],
   "title" : "Advanced Mathematics"
 }, {
-  "enrolledStudents" : [ 2, 1, 8, 9 ],
-  "id" : 3,
-  "instructorId" : 3,
-  "lessons" : [ {
-    "content" : "JavaScript adds interactivity to web pages...",
-    "id" : 7,
-    "studentProgress" : {
-      "2" : false,
-      "8" : true,
-      "9" : true
-    },
-    "title" : "JavaScript Fundamentals"
-  }, {
-    "content" : "HTML provides the structure of web pages, while CSS handles the styling...",
-    "id" : 6,
-    "studentProgress" : {
-      "2" : true,
-      "8" : true,
-      "9" : true
-    },
-    "title" : "HTML and CSS"
-  } ],
-  "title" : "Web Development Basics"
-}, {
-  "enrolledStudents" : [ 1, 2, 8, 9 ],
+  "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
   "id" : 1,
   "instructorId" : 3,
   "lessons" : [ {
+    "content" : "Control structures determine the flow of program execution...",
+    "id" : 3,
+    "studentProgress" : {
+      "1" : false,
+      "2" : true,
+      "8" : true,
+      "9" : true,
+      "10" : false,
+      "11" : false
+    },
+    "title" : "Control Structures"
+  }, {
     "content" : "Programming is the process of creating instructions for computers...",
     "id" : 1,
     "studentProgress" : {
       "1" : true,
       "2" : false,
       "8" : true,
-      "9" : true
+      "9" : true,
+      "10" : true,
+      "11" : false
     },
     "title" : "What is Programming?"
   }, {
@@ -69,19 +63,41 @@
       "1" : true,
       "2" : true,
       "8" : true,
-      "9" : true
+      "9" : true,
+      "10" : false,
+      "11" : false
     },
     "title" : "Variables and Data Types"
-  }, {
-    "content" : "Control structures determine the flow of program execution...",
-    "id" : 3,
-    "studentProgress" : {
-      "1" : false,
-      "2" : true,
-      "8" : true,
-      "9" : true
-    },
-    "title" : "Control Structures"
   } ],
   "title" : "Introduction to Programming"
+}, {
+  "enrolledStudents" : [ 2, 1, 8, 9, 10, 11, 12 ],
+  "id" : 3,
+  "instructorId" : 3,
+  "lessons" : [ {
+    "content" : "JavaScript adds interactivity to web pages...",
+    "id" : 7,
+    "studentProgress" : {
+      "2" : false,
+      "8" : true,
+      "9" : true,
+      "10" : true,
+      "11" : false,
+      "12" : true
+    },
+    "title" : "JavaScript Fundamentals"
+  }, {
+    "content" : "HTML provides the structure of web pages, while CSS handles the styling...",
+    "id" : 6,
+    "studentProgress" : {
+      "2" : true,
+      "8" : true,
+      "9" : true,
+      "10" : true,
+      "11" : false,
+      "12" : true
+    },
+    "title" : "HTML and CSS"
+  } ],
+  "title" : "Web Development Basics"
 } ]

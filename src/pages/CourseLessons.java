@@ -203,8 +203,12 @@ public class CourseLessons extends javax.swing.JFrame {
         frame.instructorname.setText("InstructorName:" + InstructorService.getInstructor(course.getInstructorId()).getName());
 
         frame.BackBtn.addActionListener(e -> {
-            frame.dispose();
-            StudentDashBoard.start(ID);
+//            frame.dispose();
+            frame.setVisible(false);
+            if(Frame != null){
+                Frame.setVisible(false);
+            }
+            CoursesView.start(ID);
         });
 
         JPanel lessonsPanel = new JPanel();
@@ -224,6 +228,7 @@ public class CourseLessons extends javax.swing.JFrame {
             int response=showMessage("Do You Want to Enroll the Course with name:"+course.getTitle());
             if(response == JOptionPane.YES_OPTION){
                  StudentService.enroll(ID,course.getId());
+                 StudentLessons.start(course,ID);
                  frame.dispose();
                  StudentDashBoard.start(ID);
                  MainWindow.goToFrame("StudentDashBoard");
