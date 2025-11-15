@@ -26,6 +26,11 @@ Refer to it to check the completion of this project.
          ├─── Student
          └─── Instructor
     ├─── pages
+         ├─── components
+              ├─── SignupButton
+              └─── LoginButton
+         ├─── SignupPage
+         └─── LoginPage
     ├─── resources
          ├─── icon.png
          ├─── users.json
@@ -46,6 +51,7 @@ Refer to it to check the completion of this project.
     
   - Repository Merger & Owner
   - Database & Service Layer
+  - Login & Signup Pages
 
 - [Abdoalrahman Khedr](https://github.com/Abdoalrahmankhedr) - ID **9624**
 
