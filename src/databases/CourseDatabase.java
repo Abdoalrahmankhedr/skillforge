@@ -17,7 +17,7 @@ public class CourseDatabase extends Database<Course> {
     private int lessonIndex = 1;
     private static CourseDatabase instance;
 
-    public CourseDatabase(String filename) {
+    private CourseDatabase(String filename) {
         super(filename, Course.class);
 
         /* Determines the most recent ID for all lessons */
