@@ -98,6 +98,6 @@ public abstract class Database<T extends Model> {
     public void saveToFile() {
         /* Overwrite JSON file to store records */
         File file = new File(this.filename);
-        this.mapper.writeValue(file, records);
+        this.mapper.writerWithDefaultPrettyPrinter().writeValue(file, records);
     }
 }
