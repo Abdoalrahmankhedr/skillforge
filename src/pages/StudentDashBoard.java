@@ -1,8 +1,6 @@
 package pages;
 
-import databases.CourseDatabase;
 import models.Course;
-import models.Lesson;
 import models.Student;
 import services.*;
 import windows.MainWindow;
@@ -12,8 +10,6 @@ import java.awt.*;
 import java.util.List;
 
 public class StudentDashBoard extends javax.swing.JFrame {
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentDashBoard.class.getName());
-
     private static StudentDashBoard instance;
     private static Student currentStudent;
 
@@ -22,7 +18,6 @@ public class StudentDashBoard extends javax.swing.JFrame {
         instance = this;
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();

@@ -2,7 +2,6 @@
 package pages;
 
 import Components.LessonCard;
-import databases.CourseDatabase;
 import models.Course;
 import models.Lesson;
 import services.InstructorService;
@@ -13,18 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import static Components.LessonCard.completeBtn;
-
 public class CourseLessons extends javax.swing.JFrame {
     private JButton EnrollBtn;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentLessons.class.getName());
     public CourseLessons() {
         initComponents();
     }
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         BackBtn = new javax.swing.JButton();
@@ -175,28 +168,7 @@ public class CourseLessons extends javax.swing.JFrame {
 
         pack();
     }
-    // </editor-fold>
-    //    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new StudentLessons().setVisible(true));
-//    }
+
     public static int showMessage(String message) {
         return JOptionPane.showConfirmDialog(
                 null,
@@ -217,7 +189,7 @@ public class CourseLessons extends javax.swing.JFrame {
     private static List<Lesson> currentlessons;
     public static void start(Course course, int ID){
         MainWindow.closeFrame("CorsesView");
-        CourseLessons frame = new CourseLessons(); // إنشاء instance
+        CourseLessons frame = new CourseLessons();
         frame.setVisible(true);
 
         List<Lesson> currentlessons = course.getLessons();
@@ -230,7 +202,6 @@ public class CourseLessons extends javax.swing.JFrame {
         frame.BackBtn.addActionListener(e -> {
             frame.dispose();
             StudentDashBoard.start(ID);
-            //MainWindow.goToFrame("");
         });
 
         JPanel lessonsPanel = new JPanel();

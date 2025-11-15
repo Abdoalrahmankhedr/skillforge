@@ -7,17 +7,15 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import databases.CourseDatabase;
 import models.Course;
-import pages.CourseLessons;
 import services.InstructorService;
 import services.StudentService;
 import windows.MainWindow;
 
 public class CoursesView extends javax.swing.JFrame {
     private static final CourseDatabase db = CourseDatabase.getInstance();
-    private static CoursesView instance; // تعريف instance
+    private static CoursesView instance;
    private static int currentstudent=0;
     public CoursesView() {
         initComponents();
