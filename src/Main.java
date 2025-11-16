@@ -1,4 +1,3 @@
-
 import pages.*;
 import windows.MainWindow;
 
@@ -7,10 +6,18 @@ public class Main {
         /* Pages */
         MainWindow.addPage("login", new LoginPage());
         MainWindow.addPage("signup", new SignupPage());
-        MainWindow.addFrame("StudentDashBoard",new StudentDashBoard());
-        MainWindow.addFrame("CourseLessons",new CourseLessons());
-        MainWindow.addFrame("studentlessons",new StudentLessons());
-        MainWindow.addFrame("CorsesView",new CoursesView());
+
+        /* Student Frames */
+        MainWindow.addFrame("StudentDashBoard", new StudentDashBoard());
+        MainWindow.addFrame("CourseLessons", new CourseLessons());
+        MainWindow.addFrame("studentlessons", new StudentLessons());
+        MainWindow.addFrame("CorsesView", new CoursesView());
+
+        /* Instructor Frames */
+        MainWindow.addFrame("InstructorDashboard", new InstructorDashboard());
+        MainWindow.addFrame("ManageCourseFrame", new ManageCourseFrame());
+        MainWindow.addFrame("ViewStudentsFrame", new ViewStudentsFrame());
+
         /* Starting up main window */
         MainWindow.nameWindow("SkillForge");
         MainWindow.addIcon("src/resources/icon.png");

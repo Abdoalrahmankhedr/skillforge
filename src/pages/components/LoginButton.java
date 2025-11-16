@@ -1,6 +1,8 @@
 package pages.components;
 
 import databases.UserDatabase;
+import models.User;
+import pages.InstructorDashboard;
 import pages.StudentDashBoard;
 import windows.MainWindow;
 
@@ -73,12 +75,27 @@ public class LoginButton extends JButton {
             Boolean result = db.login(currentEmail, currentPwd);
             if (result != null && result) {
                 /* Go to next page */
+                User user = db.getUserByEmail(currentEmail);
                 email.setText("");
                 password.setText("");
+
                 // Add page after user login here
                 // Will add based on roles once other dashboard is made
-                StudentDashBoard.start(db.getUserByEmail(currentEmail).getId());
-                MainWindow.goToFrame("StudentDashBoard");
+
+                /* Check user role and redirect accordingly */
+                if (user.getRole().equalsIgnoreCase("Instructor")) {
+                    InstructorDashboard.start(user.getId());
+                    MainWindow.goToFrame("InstructorDashboard");
+                } else if (user.getRole().equalsIgnoreCase("Student")) {
+                    StudentDashBoard.start(user.getId());
+                    MainWindow.goToFrame("StudentDashBoard");
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Unknown user role",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE,
+                            null);
+                }
 
             } else {
                 JOptionPane.showMessageDialog(this,

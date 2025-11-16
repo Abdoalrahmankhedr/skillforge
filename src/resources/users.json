@@ -40,4 +40,10 @@
   "name" : "test",
   "password" : "b69879b0906a103fd22edd409e6d04c276bdd94c56699e7a9d35fdb57a8bead7",
   "role" : "Student"
+}, {
+  "email" : "ahmedshrif526@gmail.com",
+  "id" : 8,
+  "name" : "ahmed",
+  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+  "role" : "Instructor"
 } ]
