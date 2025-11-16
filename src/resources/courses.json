@@ -71,14 +71,21 @@
   } ],
   "title" : "Web Development Basics"
 }, {
-  "enrolledStudents" : [ 9 ],
+  "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
   "id" : 5,
-  "instructorId" : 8,
+  "instructorId" : 3,
   "lessons" : [ {
-    "content" : "CPU",
-    "id" : 8,
-    "studentProgress" : { },
-    "title" : "lesson 1"
+    "content" : "Programming is the process of creating instructions for computers...",
+    "id" : 1,
+    "studentProgress" : {
+      "1" : true,
+      "2" : false,
+      "8" : true,
+      "9" : true,
+      "10" : true,
+      "11" : false
+    },
+    "title" : "What is Programming?"
   }, {
     "content" : "RAM",
     "id" : 9,
@@ -96,8 +103,8 @@
     "title" : "lesson4"
   } ],
   "title" : "operating system"
-}, {
-  "enrolledStudents" : [ ],
+},{
+  "enrolledStudents" : [ 10, 11 ],
   "id" : 7,
   "instructorId" : 8,
   "lessons" : [ ],
@@ -113,5 +120,5 @@
   "id" : 9,
   "instructorId" : 8,
   "lessons" : [ ],
-  "title" : "k;af;k"
+  "title" : "sa"
 } ]
