@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// Andrew :)
+//Hassan & Andrew :)
 
 /*
-    A service that simplifies the majority of an instructor's permissions within the project.
-    Can be used directly as a static service.
+    Extended InstructorService with editing & deleting capabilities
 */
 
 public class InstructorService {
@@ -38,6 +37,7 @@ public class InstructorService {
         return instructor;
     }
 
+    /* CREATE */
     public static void createCourse(int instructorId, String courseTitle, List<Lesson> lessons) {
         courseDb.addCourse(courseTitle, instructorId, lessons);
     }
@@ -50,6 +50,7 @@ public class InstructorService {
         courseDb.addLesson(courseId, title, content);
     }
 
+    /* READ */
     public static List<Course> getCourses(int instructorId) {
         return courseDb.getRecords().stream()
                 .filter((c) -> c.getInstructorId() == instructorId)
@@ -57,7 +58,9 @@ public class InstructorService {
     }
 
     public static List<Lesson> getLessons(int courseId) {
-        return courseDb.getCourseById(courseId).getLessons();
+        Course c = courseDb.getCourseById(courseId);
+        if (c == null) return new ArrayList<>();
+        return c.getLessons();
     }
 
     public static List<User> getEnrolledStudents(int instructorId) {
@@ -71,6 +74,51 @@ public class InstructorService {
             );
         }
 
-        return users;
+        // Remove possible nulls (if user deleted) and duplicates
+        return users.stream()
+                .filter(u -> u != null)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    /* UPDATE / EDIT COURSE */
+    public static void editCourse(int courseId, String newTitle, List<Lesson> newLessons) {
+        Course course = courseDb.getCourseById(courseId);
+        if (course == null) {
+            System.out.printf("[InstructorService]: Course with ID %d not found.\n", courseId);
+            return;
+        }
+
+        // Use CourseDatabase's updateCourse which handles deletion+insertion
+        courseDb.updateCourse(courseId, newTitle != null ? newTitle : course.getTitle(),
+                newLessons != null ? newLessons : course.getLessons());
+    }
+
+    /* DELETE COURSE */
+    public static void deleteCourse(int courseId) {
+        courseDb.deleteCourse(courseId);
+    }
+
+    /* UPDATE / EDIT LESSON */
+    public static void editLesson(int lessonId, String newTitle, String newContent) {
+        Lesson lesson = courseDb.getLessonById(lessonId);
+        if (lesson == null) {
+            System.out.printf("[InstructorService]: Lesson with ID %d not found.\n", lessonId);
+            return;
+        }
+
+        if (newTitle != null) lesson.setTitle(newTitle);
+        if (newContent != null) lesson.setContent(newContent);
+
+        courseDb.updateLesson(lesson);
+    }
+
+    /* DELETE LESSON */
+    public static void deleteLesson(int lessonId) {
+        courseDb.deleteLesson(lessonId);
+    }
+    
+    public static void enrollStudentToCourse(int studentId, int courseId) {
+        courseDb.enroll(studentId, courseId);
     }
 }

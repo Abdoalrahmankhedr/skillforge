@@ -7,6 +7,7 @@ import windows.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class InstructorDashboard extends JFrame {
@@ -25,6 +26,9 @@ public class InstructorDashboard extends JFrame {
     private JLabel coursesCountLabel;
     private JLabel jLabel5;
     private JPanel coursesPanel;
+
+    // Flag to track if listeners are already added
+    private static boolean listenersAdded = false;
 
     public InstructorDashboard() {
         initComponents();
@@ -192,6 +196,14 @@ public class InstructorDashboard extends JFrame {
         pack();
     }
 
+    private static void removeAllActionListeners(JButton button) {
+        // Remove all existing ActionListeners
+        ActionListener[] listeners = button.getActionListeners();
+        for (ActionListener listener : listeners) {
+            button.removeActionListener(listener);
+        }
+    }
+
     private static JPanel createCourseCard(Course course, int instructorId) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -278,15 +290,20 @@ public class InstructorDashboard extends JFrame {
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        instance.logoutBtn.addActionListener(e -> {
-            MainWindow.closeFrame("InstructorDashboard");
-            MainWindow.goTo("login");
-            MainWindow.start();
-        });
+        // Add listeners only once
+        if (!listenersAdded) {
+            instance.logoutBtn.addActionListener(e -> {
+                MainWindow.closeFrame("InstructorDashboard");
+                MainWindow.goTo("login");
+                MainWindow.start();
+            });
 
-        instance.createCourseBtn.addActionListener(e -> {
-            CreateCourseDialog.showDialog(instructorId, instance);
-        });
+            instance.createCourseBtn.addActionListener(e -> {
+                CreateCourseDialog.showDialog(instructorId, instance);
+            });
+
+            listenersAdded = true;
+        }
 
         instance.coursesPanel.removeAll();
         instance.coursesPanel.setLayout(new BorderLayout());

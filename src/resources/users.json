@@ -47,10 +47,10 @@
   "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
   "role" : "Instructor"
 }, {
-  "email" : "f@f.f",
+  "email" : "malek@gmail.com",
   "id" : 9,
-  "name" : "e",
-  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+  "name" : "malek",
+  "password" : "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
   "role" : "Student"
 }, {
   "email" : "e@e.e",
