@@ -19,6 +19,8 @@ public class EditLessonDialog extends JDialog {
         this.lesson = lesson;
         initComponents();
         loadLessonData();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {
