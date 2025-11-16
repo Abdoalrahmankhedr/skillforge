@@ -225,13 +225,19 @@ public class StudentLessons extends javax.swing.JFrame {
         } else {
             currentlessons = course.getLessons();
             total = currentlessons.size();
+
+            for (Lesson l : currentlessons) {
+                if (!l.getStudentProgress().containsKey(ID)) {
+                    StudentService.takeLesson(ID, l.getId());
+                }
+            }
+
             for (Lesson l : currentlessons) {
                 if (l.getStudentProgress().containsKey(ID)) {
                     Boolean status = l.getStudentProgress().get(ID);
                     if (status != null && status) {
                         completed++;
                     } else {
-                        StudentService.takeLesson(ID, l.getId());
                         unCompleted++;
                     }
                 } else {
