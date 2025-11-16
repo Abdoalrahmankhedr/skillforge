@@ -1,9 +1,9 @@
 
 package pages;
 
-import pages.components.*;
 import models.Course;
 import models.Lesson;
+import pages.components.LessonCard;
 import services.InstructorService;
 import services.StudentService;
 import windows.MainWindow;
@@ -13,17 +13,11 @@ import java.awt.*;
 import java.util.List;
 
 public class StudentLessons extends javax.swing.JFrame {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(StudentLessons.class.getName());
     public StudentLessons() {
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
     }
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
 
+    private void initComponents() {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         BackBtn = new javax.swing.JButton();
@@ -45,15 +39,13 @@ public class StudentLessons extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         BackBtn.setBackground(new java.awt.Color(51, 51, 255));
-        BackBtn.setFont(new java.awt.Font("Segoe UI", 0, 21));
+        BackBtn.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 21));
         BackBtn.setForeground(Color.white);
-        // NOI18N
         BackBtn.setText("Back");
 
-        Coursetitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Coursetitle.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 24));
         Coursetitle.setForeground(new java.awt.Color(0, 0, 0));
         Coursetitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Coursetitle.setText("abdoalrahman");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,32 +70,32 @@ public class StudentLessons extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(102, 204, 255));
 
-        id.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        id.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
         id.setForeground(new java.awt.Color(0, 0, 0));
         id.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         id.setText("jLabel1");
 
-        lessons.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lessons.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18));
         lessons.setForeground(new java.awt.Color(0, 0, 0));
         lessons.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lessons.setText("jLabel2");
 
-        Completed.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Completed.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18));
         Completed.setForeground(new java.awt.Color(0, 204, 51));
         Completed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Completed.setText("jLabel1");
 
-        uncompleted.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        uncompleted.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18));
         uncompleted.setForeground(new java.awt.Color(204, 0, 0));
         uncompleted.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         uncompleted.setText("jLabel1");
 
-        progress.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        progress.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18));
         progress.setForeground(new java.awt.Color(0, 204, 0));
         progress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         progress.setText("jLabel2");
 
-        instructorname.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        instructorname.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18));
         instructorname.setForeground(new java.awt.Color(0, 0, 0));
         instructorname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         instructorname.setText("jLabel1");
@@ -140,7 +132,7 @@ public class StudentLessons extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 24));
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("My Courses");
@@ -192,7 +184,7 @@ public class StudentLessons extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>
+    }
       public static int showMessage(String message) {
            return JOptionPane.showConfirmDialog(
               null,
@@ -203,11 +195,19 @@ public class StudentLessons extends javax.swing.JFrame {
            );
       }
     public static boolean checkLastLessons(Course course,Lesson l,int id){
-        for(Lesson c:course.getLessons()){
-            if(c.getTitle().equals(l.getTitle())||c == course.getLessons().get(course.getLessons().size() - 1)) return true;
-            else if(!c.getStudentProgress().get(id)) return false;
+        List<Lesson> lessons = course.getLessons();
+        int currentIndex = lessons.indexOf(l);
+
+        if (currentIndex == 0) return true;
+
+        for (int i = 0; i < currentIndex; i++) {
+            Boolean status = lessons.get(i).getStudentProgress().get(id);
+            if (status == null || !status) {
+                return false;
+            }
         }
-        return false;
+
+        return true;
     }
     private static int completed;
     private static int unCompleted;
@@ -218,63 +218,67 @@ public class StudentLessons extends javax.swing.JFrame {
             StudentDashBoard.start(ID);
             MainWindow.goToFrame("StudentDashBoard");
         });
-        total=course.getLessons().size();
-        completed=unCompleted=0;
-        if(!course.getLessons().get(0).getStudentProgress().containsKey(ID)){
-            List<Lesson> lessons = course.getLessons();
-            for (int i = 0; i < lessons.size(); i++) {
-                Lesson l = lessons.get(i);
-                Boolean status = l.getStudentProgress().get(ID);
-                if (status == null) {
-                    StudentService.takeLesson(ID, l.getId());
+
+        if (course.getLessons().isEmpty()) {
+            total = completed = unCompleted = 0;
+            currentlessons = null;
+//            showMessage("Course has no lessons available");
+        } else {
+            currentlessons = course.getLessons();
+            total = currentlessons.size();
+            for (Lesson l : currentlessons) {
+                if (l.getStudentProgress().containsKey(ID)) {
+                    Boolean status = l.getStudentProgress().get(ID);
+                    if (status != null && status) {
+                        completed++;
+                    } else {
+                        StudentService.takeLesson(ID, l.getId());
+                        unCompleted++;
+                    }
                 }
             }
         }
-        currentlessons=course.getLessons();
-        for(Lesson l:course.getLessons()){
-            if(l.getStudentProgress().get(ID)==null) return;
-            if(l.getStudentProgress().get(ID)){
-                completed++;
-            }
-            else unCompleted++;
-        }
+
         Coursetitle.setText(course.getTitle());
         id.setText("CourseId:"+course.getId());
         lessons.setText("Lessons:"+total);
         instructorname.setText(InstructorService.getInstructor(course.getInstructorId()).getName());
         Completed.setText("Completed:"+completed);
         uncompleted.setText("UnCompleted:"+unCompleted);
-        progress.setText("Progress:"+(completed/total)*100+"%");
+        progress.setText("Progress:" + ((double)completed/total)*100 + "%");
         JPanel lessonsPanel = new JPanel();
         lessonsPanel.setLayout(new BoxLayout(lessonsPanel, BoxLayout.Y_AXIS));
         lessonsPanel.setBackground(Color.WHITE);
-        for (Lesson l : currentlessons) {
-            LessonCard card = new LessonCard();
-            card.setData(
-                    true,
-                    l.getTitle(),
-                    l.getContent(),
-                    l.getStudentProgress().getOrDefault(ID, false),
-                    e -> {
-                        if(checkLastLessons(course,l,ID)){
-                            //save the update to file
-                            card.completeBtn.setText("Completed");
-                            StudentService.completeLesson(ID,l.getId());
-                            card.completeBtn.setBackground(Color.green);
-                            card.completeBtn.setEnabled(false);
-                            completed++;
-                            unCompleted--;
-                            Completed.setText("Completed:"+completed);
-                            uncompleted.setText("UnCompleted:"+unCompleted);
-                            progress.setText("Progress:"+(completed/total)*100+"%");
+
+        if (currentlessons != null) {
+            for (Lesson l : currentlessons) {
+                LessonCard card = new LessonCard();
+                card.setData(
+                        true,
+                        l.getTitle(),
+                        l.getContent(),
+                        l.getStudentProgress().getOrDefault(ID, false),
+                        e -> {
+                            if(checkLastLessons(course,l,ID)){
+                                //save the update to file
+                                card.completeBtn.setText("Completed");
+                                StudentService.completeLesson(ID,l.getId());
+                                card.completeBtn.setBackground(Color.green);
+                                card.completeBtn.setEnabled(false);
+                                completed++;
+                                unCompleted--;
+                                Completed.setText("Completed:"+completed);
+                                uncompleted.setText("UnCompleted:"+unCompleted);
+                                progress.setText("Progress:"+(completed/total)*100+"%");
+                            }
+                            else{
+                                showMessage("You Need To complete the last Lessons Before This First");
+                            }
                         }
-                        else{
-                            showMessage("You Need To complete the last Lessons Before This First");
-                        }
-                    }
-            );
-            lessonsPanel.add(card);
-            lessonsPanel.add(Box.createVerticalStrut(5));
+                );
+                lessonsPanel.add(card);
+                lessonsPanel.add(Box.createVerticalStrut(5));
+            }
         }
 
         JScrollPane scrollPane = new JScrollPane(lessonsPanel,
