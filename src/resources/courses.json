@@ -29,48 +29,6 @@
   } ],
   "title" : "Advanced Mathematics"
 }, {
-  "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
-  "id" : 1,
-  "instructorId" : 3,
-  "lessons" : [ {
-    "content" : "Control structures determine the flow of program execution...",
-    "id" : 3,
-    "studentProgress" : {
-      "1" : false,
-      "2" : true,
-      "8" : true,
-      "9" : true,
-      "10" : false,
-      "11" : false
-    },
-    "title" : "Control Structures"
-  }, {
-    "content" : "Programming is the process of creating instructions for computers...",
-    "id" : 1,
-    "studentProgress" : {
-      "1" : true,
-      "2" : false,
-      "8" : true,
-      "9" : true,
-      "10" : true,
-      "11" : false
-    },
-    "title" : "What is Programming?"
-  }, {
-    "content" : "Variables are used to store data in programming...",
-    "id" : 2,
-    "studentProgress" : {
-      "1" : true,
-      "2" : true,
-      "8" : true,
-      "9" : true,
-      "10" : false,
-      "11" : false
-    },
-    "title" : "Variables and Data Types"
-  } ],
-  "title" : "Introduction to Programming"
-}, {
   "enrolledStudents" : [ 2, 1, 8, 9, 10, 11, 12 ],
   "id" : 3,
   "instructorId" : 3,
@@ -101,9 +59,70 @@
   } ],
   "title" : "Web Development Basics"
 }, {
-  "enrolledStudents" : [ ],
+  "enrolledStudents" : [ 10, 10 ],
   "id" : 5,
   "instructorId" : 8,
   "lessons" : [ ],
   "title" : "fgdgh"
+}, {
+  "enrolledStudents" : [ 10 ],
+  "id" : 6,
+  "instructorId" : 13,
+  "lessons" : [ {
+    "content" : "1",
+    "id" : 8,
+    "studentProgress" : {
+      "10" : false
+    },
+    "title" : "g"
+  } ],
+  "title" : "Machine learning"
+}, {
+  "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
+  "id" : 1,
+  "instructorId" : 3,
+  "lessons" : [ {
+    "content" : "Programming is the process of creating instructions for computers...",
+    "id" : 1,
+    "studentProgress" : {
+      "1" : true,
+      "2" : false,
+      "8" : true,
+      "9" : true,
+      "10" : true,
+      "11" : false
+    },
+    "title" : "What is Programming?"
+  }, {
+    "content" : "Control structures determine the flow of program execution...",
+    "id" : 3,
+    "studentProgress" : {
+      "1" : false,
+      "2" : true,
+      "8" : true,
+      "9" : true,
+      "10" : true,
+      "11" : false
+    },
+    "title" : "Control Structures"
+  }, {
+    "content" : "Variables are used to store data in programming...",
+    "id" : 2,
+    "studentProgress" : {
+      "1" : true,
+      "2" : true,
+      "8" : true,
+      "9" : true,
+      "10" : true,
+      "11" : false
+    },
+    "title" : "Variables and Data Types"
+  } ],
+  "title" : "Introduction to Programming"
+}, {
+  "enrolledStudents" : [ 10 ],
+  "id" : 7,
+  "instructorId" : 13,
+  "lessons" : [ ],
+  "title" : "sa"
 } ]

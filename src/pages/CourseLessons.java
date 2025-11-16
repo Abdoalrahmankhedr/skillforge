@@ -1,7 +1,7 @@
 
 package pages;
 
-import Components.LessonCard;
+import pages.components.LessonCard;
 import models.Course;
 import models.Lesson;
 import services.InstructorService;
@@ -16,8 +16,11 @@ public class CourseLessons extends javax.swing.JFrame {
     private JButton EnrollBtn;
     public CourseLessons() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
     private void initComponents() {
+
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         BackBtn = new javax.swing.JButton();
@@ -203,7 +206,6 @@ public class CourseLessons extends javax.swing.JFrame {
         frame.instructorname.setText("InstructorName:" + InstructorService.getInstructor(course.getInstructorId()).getName());
 
         frame.BackBtn.addActionListener(e -> {
-//            frame.dispose();
             frame.setVisible(false);
             if(Frame != null){
                 Frame.setVisible(false);

@@ -16,6 +16,8 @@ public class StudentDashBoard extends javax.swing.JFrame {
     public StudentDashBoard() {
         initComponents();
         instance = this;
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {
@@ -237,7 +239,6 @@ public class StudentDashBoard extends javax.swing.JFrame {
 
 
     public static void start(int id) {
-//        MainWindow.closeFrame("studentlessons");
         currentStudent = StudentService.getStudent(id);
 
         instance.STudentid.setText("ID: " + currentStudent.getId());
@@ -247,33 +248,36 @@ public class StudentDashBoard extends javax.swing.JFrame {
         List<Course> enrolledCourses = StudentService.getEnrolledCourses(id);
         instance.enrolledcourses.setText("EnrolledCourses:" + enrolledCourses.size());
 
-        JPanel coursesInnerPanel = new JPanel();
-        coursesInnerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        int columns = 3;
+        int rows = (int) Math.ceil(enrolledCourses.size() / (double) columns);
+
+        JPanel inner = new JPanel(new GridLayout(rows, columns, 10, 10));
+        inner.setBackground(Color.WHITE);
+
         for (Course c : enrolledCourses) {
-            coursesInnerPanel.add(createCourseCard(c,id));
+            inner.add(createCourseCard(c, id));
         }
 
-        JScrollPane scrollPane = new JScrollPane(coursesInnerPanel,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(900, 500));
+        JScrollPane scroll = new JScrollPane(inner);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
         jButton1.setForeground(Color.white);
         jButton2.setForeground(Color.white);
-        jButton1.addActionListener(e->{
+        jButton1.addActionListener(e -> {
             MainWindow.closeFrame("StudentDashBoard");
             MainWindow.goTo("login");
             MainWindow.start();
+        });
+        jButton2.addActionListener(e -> CoursesView.start(id));
 
-        });
-        jButton2.addActionListener(e->{
-            CoursesView.start(id);
-        });
         instance.coursespanel.removeAll();
         instance.coursespanel.setLayout(new BorderLayout());
-        instance.coursespanel.add(scrollPane, BorderLayout.CENTER);
+        instance.coursespanel.add(scroll, BorderLayout.CENTER);
         instance.coursespanel.revalidate();
         instance.coursespanel.repaint();
     }
+
 
     private javax.swing.JLabel STudentid;
     private javax.swing.JPanel coursespanel;
