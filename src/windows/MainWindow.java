@@ -78,7 +78,7 @@ public class MainWindow {
             main.setSize(dimensions[0], dimensions[1]);
             if (title != null) main.setTitle(title);
             /* Window can not change size */
-            //main.setResizable(false);
+            main.setResizable(false);
             /* Close on exit behaviour */
             main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             /* Setting icon */
