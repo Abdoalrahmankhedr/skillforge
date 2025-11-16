@@ -1,4 +1,4 @@
-package Components;
+package pages.components;
 
 import javax.swing.*;
         import java.awt.*;

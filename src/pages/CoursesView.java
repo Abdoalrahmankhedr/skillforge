@@ -20,6 +20,8 @@ public class CoursesView extends javax.swing.JFrame {
     public CoursesView() {
         initComponents();
         setupSearchField();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void setupSearchField() {
@@ -225,12 +227,17 @@ public class CoursesView extends javax.swing.JFrame {
     }
 
     public void showCards(List<Course> courses, int id) {
-        JPanel coursesInnerPanel = new JPanel();
-        coursesInnerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        int columns = 3;
+        int rows = (int) Math.ceil(courses.size() / (double) columns);
+
+        JPanel inner = new JPanel(new GridLayout(rows, columns, 10, 10));
+        inner.setBackground(Color.WHITE);
+
         for (Course c : courses) {
-            coursesInnerPanel.add(createCourseCard(c, id));
+            inner.add(createCourseCard(c, id));
         }
-        JScrollPane scrollPane = new JScrollPane(coursesInnerPanel,
+
+        JScrollPane scrollPane = new JScrollPane(inner,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -241,8 +248,8 @@ public class CoursesView extends javax.swing.JFrame {
         coursepanel.repaint();
     }
 
+
     public static void start(int id) {
-//        MainWindow.closeFrame("StudentDashBoard");
         currentstudent = id;
         if (instance == null) {
             instance = new CoursesView();
