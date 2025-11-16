@@ -1,6 +1,5 @@
 package pages;
-
-import Components.LessonCard;
+import pages.components.*;
 import databases.CourseDatabase;
 import models.Course;
 import models.Lesson;

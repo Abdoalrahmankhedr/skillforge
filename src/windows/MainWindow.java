@@ -126,10 +126,9 @@ public class MainWindow {
         }
     }
     public static void goToFrame(String name) {
-        closeFrame("StudentDashBoard");
-        closeFrame("CorsesView");
-        closeFrame("studentlessons");
-        closeFrame("CourseLessons");
+        for (JFrame f : frames.values()) {
+            f.setVisible(false);
+        }
         JFrame frame = frames.getOrDefault(name, null);
         if (frame != null) {
             frame.setVisible(true);
@@ -144,5 +143,8 @@ public class MainWindow {
             frame.toFront();
             frame.requestFocus();
         }
+    }
+    public static JFrame getFrame(String name){
+        return frames.getOrDefault(name,null);
     }
 }

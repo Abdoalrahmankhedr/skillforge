@@ -41,9 +41,12 @@ public abstract class Database<T extends Model> {
         this.logName = this.getClass().getSimpleName();
 
         readFile();
+        refreshId();
+    }
 
+    private void refreshId() {
         /* Use the highest ID as a starting point */
-        if (this.records.isEmpty()) this.index = 0;
+        this.index = 0;
         for (T record : this.records) {
             this.index = Math.max(this.index, record.getId());
         }
@@ -58,6 +61,7 @@ public abstract class Database<T extends Model> {
             if (getRecordById(record.getId()) == null) {
                 this.records.add(record);
                 saveToFile();
+                refreshId();
             }
         }
     }
@@ -74,6 +78,7 @@ public abstract class Database<T extends Model> {
 
     public void deleteRecord(int id) {
         this.records.removeIf((record) -> record.getId() == id);
+        refreshId();
     }
 
     public void readFile() {

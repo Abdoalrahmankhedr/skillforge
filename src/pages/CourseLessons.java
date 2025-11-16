@@ -1,7 +1,7 @@
 
 package pages;
 
-import Components.LessonCard;
+import pages.components.LessonCard;
 import models.Course;
 import models.Lesson;
 import services.InstructorService;
@@ -16,8 +16,11 @@ public class CourseLessons extends javax.swing.JFrame {
     private JButton EnrollBtn;
     public CourseLessons() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
     private void initComponents() {
+
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         BackBtn = new javax.swing.JButton();
@@ -188,7 +191,10 @@ public class CourseLessons extends javax.swing.JFrame {
     private static int total;
     private static List<Lesson> currentlessons;
     public static void start(Course course, int ID){
-        MainWindow.closeFrame("CorsesView");
+        CoursesView Frame = (CoursesView) MainWindow.getFrame("CoursesView");
+        if(Frame != null){
+            Frame.setVisible(false);
+        }
         CourseLessons frame = new CourseLessons();
         frame.setVisible(true);
 
@@ -200,8 +206,11 @@ public class CourseLessons extends javax.swing.JFrame {
         frame.instructorname.setText("InstructorName:" + InstructorService.getInstructor(course.getInstructorId()).getName());
 
         frame.BackBtn.addActionListener(e -> {
-            frame.dispose();
-            StudentDashBoard.start(ID);
+            frame.setVisible(false);
+            if(Frame != null){
+                Frame.setVisible(false);
+            }
+            CoursesView.start(ID);
         });
 
         JPanel lessonsPanel = new JPanel();
@@ -221,6 +230,7 @@ public class CourseLessons extends javax.swing.JFrame {
             int response=showMessage("Do You Want to Enroll the Course with name:"+course.getTitle());
             if(response == JOptionPane.YES_OPTION){
                  StudentService.enroll(ID,course.getId());
+                 StudentLessons.start(course,ID);
                  frame.dispose();
                  StudentDashBoard.start(ID);
                  MainWindow.goToFrame("StudentDashBoard");

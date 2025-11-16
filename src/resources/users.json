@@ -52,4 +52,28 @@
   "name" : "malek",
   "password" : "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
   "role" : "Student"
+}, {
+  "email" : "e@e.e",
+  "id" : 10,
+  "name" : "d",
+  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+  "role" : "Student"
+}, {
+  "email" : "s@s.s",
+  "id" : 11,
+  "name" : "ee",
+  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+  "role" : "Student"
+}, {
+  "email" : "abdoalrahmankhedr95@gmail.com",
+  "id" : 12,
+  "name" : "Abdo khedr",
+  "password" : "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+  "role" : "Student"
+}, {
+  "email" : "abdo@g.c",
+  "id" : 13,
+  "name" : "abdo",
+  "password" : "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
+  "role" : "Instructor"
 } ]

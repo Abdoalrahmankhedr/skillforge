@@ -40,18 +40,11 @@ public class CourseDatabase extends Database<Course> {
     public void deleteLesson(int id) {
         for (Course c : getRecords()) {
             List<Lesson> ls = c.getLessons();
-
-            boolean found = false;
             for (Lesson l : ls) {
                 if (l.getId() == id) {
-                    found = true;
-                    break;
+                    ls.removeIf((t) -> t.getId() == id);
+                    c.setLessons(ls);
                 }
-            }
-
-            if (found) {
-                ls.removeIf(t -> t.getId() == id);
-                c.setLessons(ls);
             }
         }
     }
