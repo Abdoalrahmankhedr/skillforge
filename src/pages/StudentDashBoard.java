@@ -126,17 +126,7 @@ public class StudentDashBoard extends javax.swing.JFrame {
         jLabel5.setText("My Courses");
 
         coursespanel.setBackground(new java.awt.Color(204, 204, 204));
-
-        javax.swing.GroupLayout coursespanelLayout = new javax.swing.GroupLayout(coursespanel);
-        coursespanel.setLayout(coursespanelLayout);
-        coursespanelLayout.setHorizontalGroup(
-                coursespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-        );
-        coursespanelLayout.setVerticalGroup(
-                coursespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 506, Short.MAX_VALUE)
-        );
+        coursespanel.setLayout(new BorderLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,7 +134,7 @@ public class StudentDashBoard extends javax.swing.JFrame {
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(coursespanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(coursespanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(466, 466, 466)
                                 .addComponent(jLabel5)
@@ -159,7 +149,7 @@ public class StudentDashBoard extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coursespanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(coursespanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,9 +167,6 @@ public class StudentDashBoard extends javax.swing.JFrame {
 
         pack();
     }
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {}
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {}
 
     private static JPanel createCourseCard(Course course,int id) {
         JPanel card = new JPanel();
@@ -214,11 +201,10 @@ public class StudentDashBoard extends javax.swing.JFrame {
         viewLessonsBtn.setFont(new Font("Arial", Font.BOLD, 20));
         viewLessonsBtn.setForeground(Color.WHITE);
         viewLessonsBtn.setFocusPainted(false);
-        viewLessonsBtn.setSize(200,80);
         viewLessonsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         viewLessonsBtn.addActionListener(e -> {
-           StudentLessons.start(course,id);
-           MainWindow.goToFrame("studentlessons");
+            StudentLessons.start(course,id);
+            MainWindow.goToFrame("studentlessons");
         });
 
         card.add(Box.createVerticalStrut(10));
@@ -236,8 +222,6 @@ public class StudentDashBoard extends javax.swing.JFrame {
         return card;
     }
 
-
-
     public static void start(int id) {
         currentStudent = StudentService.getStudent(id);
 
@@ -250,17 +234,18 @@ public class StudentDashBoard extends javax.swing.JFrame {
 
         int columns = 3;
         int rows = (int) Math.ceil(enrolledCourses.size() / (double) columns);
+        if (rows == 0) rows = 1;
 
-        JPanel inner = new JPanel(new GridLayout(rows, columns, 10, 10));
-        inner.setBackground(Color.WHITE);
+        JPanel innerPanel = new JPanel(new GridLayout(rows, columns, 10, 10));
+        innerPanel.setBackground(Color.WHITE);
+        innerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         for (Course c : enrolledCourses) {
-            inner.add(createCourseCard(c, id));
+            innerPanel.add(createCourseCard(c, id));
         }
 
-        JScrollPane scroll = new JScrollPane(inner);
-        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroll = new JScrollPane(innerPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
 
         jButton1.setForeground(Color.white);
         jButton2.setForeground(Color.white);
@@ -276,8 +261,8 @@ public class StudentDashBoard extends javax.swing.JFrame {
         instance.coursespanel.add(scroll, BorderLayout.CENTER);
         instance.coursespanel.revalidate();
         instance.coursespanel.repaint();
+        instance.setVisible(true);
     }
-
 
     private javax.swing.JLabel STudentid;
     private javax.swing.JPanel coursespanel;

@@ -59,25 +59,6 @@
   } ],
   "title" : "Web Development Basics"
 }, {
-  "enrolledStudents" : [ 10, 10 ],
-  "id" : 5,
-  "instructorId" : 8,
-  "lessons" : [ ],
-  "title" : "fgdgh"
-}, {
-  "enrolledStudents" : [ 10 ],
-  "id" : 6,
-  "instructorId" : 13,
-  "lessons" : [ {
-    "content" : "1",
-    "id" : 8,
-    "studentProgress" : {
-      "10" : false
-    },
-    "title" : "g"
-  } ],
-  "title" : "Machine learning"
-}, {
   "enrolledStudents" : [ 1, 2, 8, 9, 10, 11 ],
   "id" : 1,
   "instructorId" : 3,
@@ -120,9 +101,64 @@
   } ],
   "title" : "Introduction to Programming"
 }, {
-  "enrolledStudents" : [ 10 ],
+  "enrolledStudents" : [ 10, 10, 11 ],
+  "id" : 5,
+  "instructorId" : 8,
+  "lessons" : [ ],
+  "title" : "fgdgh"
+}, {
+  "enrolledStudents" : [ 10, 11 ],
+  "id" : 6,
+  "instructorId" : 13,
+  "lessons" : [ {
+    "content" : "1",
+    "id" : 8,
+    "studentProgress" : {
+      "10" : false
+    },
+    "title" : "g"
+  } ],
+  "title" : "Machine learning"
+}, {
+  "enrolledStudents" : [ 10, 11 ],
   "id" : 7,
   "instructorId" : 13,
+  "lessons" : [ ],
+  "title" : "sa"
+}, {
+  "enrolledStudents" : [ 11 ],
+  "id" : 8,
+  "instructorId" : 14,
+  "lessons" : [ ],
+  "title" : "fd"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 9,
+  "instructorId" : 15,
+  "lessons" : [ ],
+  "title" : "dsa"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 10,
+  "instructorId" : 15,
+  "lessons" : [ ],
+  "title" : "as"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 11,
+  "instructorId" : 15,
+  "lessons" : [ ],
+  "title" : "as"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 12,
+  "instructorId" : 15,
+  "lessons" : [ ],
+  "title" : "as"
+}, {
+  "enrolledStudents" : [ ],
+  "id" : 13,
+  "instructorId" : 15,
   "lessons" : [ ],
   "title" : "sa"
 } ]

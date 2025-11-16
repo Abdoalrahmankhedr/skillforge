@@ -17,6 +17,8 @@ public class CoursesView extends javax.swing.JFrame {
     private static final CourseDatabase db = CourseDatabase.getInstance();
     private static CoursesView instance;
     private static int currentstudent=0;
+    private JScrollPane scrollPane;
+
     public CoursesView() {
         initComponents();
         setupSearchField();
@@ -63,7 +65,6 @@ public class CoursesView extends javax.swing.JFrame {
     }
 
     private void initComponents() {
-
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Backbtn = new javax.swing.JButton();
@@ -112,18 +113,14 @@ public class CoursesView extends javax.swing.JFrame {
         searchfeild.setHorizontalAlignment(JTextField.CENTER);
 
         coursepanel.setBackground(new Color(204, 204, 204));
-        coursepanel.setBorder(BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        coursepanel.setLayout(new BorderLayout());
+        coursepanel.setPreferredSize(new Dimension(0, 584));
 
-        javax.swing.GroupLayout coursepanelLayout = new javax.swing.GroupLayout(coursepanel);
-        coursepanel.setLayout(coursepanelLayout);
-        coursepanelLayout.setHorizontalGroup(
-                coursepanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-        );
-        coursepanelLayout.setVerticalGroup(
-                coursepanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 584, Short.MAX_VALUE)
-        );
+        scrollPane = new JScrollPane();
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        coursepanel.add(scrollPane, BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -205,7 +202,6 @@ public class CoursesView extends javax.swing.JFrame {
         viewLessonsBtn.setFont(new Font("Arial", Font.BOLD, 20));
         viewLessonsBtn.setForeground(Color.WHITE);
         viewLessonsBtn.setFocusPainted(false);
-        viewLessonsBtn.setSize(200, 80);
         viewLessonsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         viewLessonsBtn.addActionListener(e -> {
             CourseLessons.start(course, id);
@@ -229,25 +225,23 @@ public class CoursesView extends javax.swing.JFrame {
     public void showCards(List<Course> courses, int id) {
         int columns = 3;
         int rows = (int) Math.ceil(courses.size() / (double) columns);
+        if (rows == 0) rows = 1;
 
         JPanel inner = new JPanel(new GridLayout(rows, columns, 10, 10));
         inner.setBackground(Color.WHITE);
+        inner.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         for (Course c : courses) {
             inner.add(createCourseCard(c, id));
         }
 
-        JScrollPane scrollPane = new JScrollPane(inner,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        int emptyCells = (rows * columns) - courses.size();
+        for (int i = 0; i < emptyCells; i++) {
+            inner.add(new JPanel());
+        }
 
-        coursepanel.removeAll();
-        coursepanel.setLayout(new BorderLayout());
-        coursepanel.add(scrollPane, BorderLayout.CENTER);
-        coursepanel.revalidate();
-        coursepanel.repaint();
+        scrollPane.setViewportView(inner);
     }
-
 
     public static void start(int id) {
         currentstudent = id;
@@ -263,8 +257,6 @@ public class CoursesView extends javax.swing.JFrame {
         MainWindow.goToFrame("CoursesView");
     }
 
-
-    // Variables declaration
     private javax.swing.JButton Backbtn;
     private javax.swing.JPanel coursepanel;
     private javax.swing.JLabel jLabel1;
