@@ -16,6 +16,8 @@ public class AddLessonDialog extends JDialog {
         super(parent, "Add New Lesson", true);
         this.course = course;
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {

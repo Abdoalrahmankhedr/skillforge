@@ -31,6 +31,8 @@ public class ManageCourseFrame extends JFrame {
     public ManageCourseFrame() {
         initComponents();
         instance = this;
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {

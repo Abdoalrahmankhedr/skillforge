@@ -16,6 +16,8 @@ public class CreateCourseDialog extends JDialog {
         super(parent, "Create New Course", true);
         this.instructorId = instructorId;
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {

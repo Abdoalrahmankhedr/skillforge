@@ -17,6 +17,8 @@ public class EditCourseDialog extends JDialog {
         this.instructorId = instructorId;
         initComponents();
         loadCourseData();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {
