@@ -8,10 +8,10 @@ public class Main {
         MainWindow.addPage("signup", new SignupPage());
 
         /* Student Frames */
-        MainWindow.addFrame("StudentDashBoard", new StudentDashBoard());
-        MainWindow.addFrame("CourseLessons", new CourseLessons());
-        MainWindow.addFrame("studentlessons", new StudentLessons());
-        MainWindow.addFrame("CorsesView", new CoursesView());
+        MainWindow.addPage("StudentDashBoard", new StudentDashBoard());
+        MainWindow.addPage("CourseLessons", new CourseLessons());
+        MainWindow.addPage("studentlessons", new StudentLessons());
+        MainWindow.addPage("CoursesView", new CoursesView());
 
         /* Instructor Frames */
         MainWindow.addFrame("InstructorDashboard", new InstructorDashboard());

@@ -48,7 +48,7 @@ public class MainWindow {
     /* Window Name */
     private static String title;
     /* Window Dimensions */
-    private static int[] dimensions = { 800, 600 };
+    private static int[] dimensions = { 1250, 700 };
 
     /* Layout */
     private static final CardLayout cardLayout = new CardLayout();
@@ -91,6 +91,7 @@ public class MainWindow {
             cardPanel.setVisible(true);
             main.add(cardPanel, BorderLayout.CENTER);
             main.setVisible(true);
+            main.setLocationRelativeTo(null);
         }
     }
 

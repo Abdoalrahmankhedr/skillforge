@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 // Andrew :)
@@ -33,7 +34,10 @@ public class Course implements Model {
     public void setId(int id) {this.id = id;}
     public String getTitle() {return title;}
     public void setTitle(String title) {this.title = title;}
-    public List<Lesson> getLessons() {return lessons;}
+    public List<Lesson> getLessons() {
+        lessons.sort(Comparator.comparingInt(Lesson::getId));
+        return lessons;
+    }
     public void setLessons(List<Lesson> lessons) {this.lessons = lessons;}
     public int getInstructorId() {return instructorId;}
     public void setInstructorId(int instructorId) {this.instructorId = instructorId;}
