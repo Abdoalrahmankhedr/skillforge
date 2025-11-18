@@ -55,7 +55,7 @@ public class CoursesView extends javax.swing.JFrame {
     private void filterCourses() {
         String text = searchfeild.getText().trim();
         List<Course> filteredCourses = new ArrayList<>();
-        for (Course c : db.getRecords()) {
+        for (Course c : db.getApprovedCourses()) {
             if (text.equals("") || text.equals("Search Course By name...") ||
                     c.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filteredCourses.add(c);
@@ -253,7 +253,7 @@ public class CoursesView extends javax.swing.JFrame {
                 MainWindow.goToFrame("StudentDashBoard");
             });
         }
-        instance.showCards(db.getRecords(), id);
+        instance.showCards(db.getApprovedCourses(), id);
         MainWindow.goToFrame("CoursesView");
     }
 

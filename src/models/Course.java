@@ -9,6 +9,9 @@ public class Course implements Model {
     private int id;
     private String title;
     private int instructorId;
+    private Integer approvedBy = null;
+    private boolean pending = true;
+    private boolean approved = false;
     private List<Lesson> lessons = new ArrayList<>();
     private List<Integer> enrolledStudents = new ArrayList<>();
 
@@ -36,4 +39,10 @@ public class Course implements Model {
     public void setInstructorId(int instructorId) {this.instructorId = instructorId;}
     public List<Integer> getEnrolledStudents() {return enrolledStudents;}
     public void setEnrolledStudents(List<Integer> enrolledStudents) {this.enrolledStudents = enrolledStudents;}
+    public Integer getApprovedBy() {return approvedBy;}
+    public void setApprovedBy(Integer approvedBy) {this.approvedBy = approvedBy;}
+    public boolean isPending() {return pending;}
+    public void setPending(boolean pending) {this.pending = pending;}
+    public boolean isApproved() {return approved;}
+    public void setApproved(boolean approved) {this.approved = approved;}
 }

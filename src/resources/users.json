@@ -12,5 +12,12 @@
     "email": "instructor@school.com",
     "name": "Andrew Again",
     "role": "Instructor"
+  },
+  {
+    "id": 3,
+    "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+    "email": "admin@school.com",
+    "name": "Hassan Admin",
+    "role": "Admin"
   }
 ]
