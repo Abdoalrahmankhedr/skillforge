@@ -4,7 +4,6 @@ import models.Course;
 import models.Lesson;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 // Andrew :)
 
@@ -35,18 +34,6 @@ public class CourseDatabase extends Database<Course> {
             instance = new CourseDatabase("src/resources/courses.json");
         }
         return instance;
-    }
-
-    public List<Course> getApprovedCourses() {
-        return getRecords().stream()
-                .filter(Course::isApproved)
-                .collect(Collectors.toList());
-    }
-
-    public List<Course> getPendingCourses() {
-        return getRecords().stream()
-                .filter(Course::isPending)
-                .collect(Collectors.toList());
     }
 
     public void deleteCourse(int id) {deleteRecord(id);}

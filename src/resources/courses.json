@@ -1,38 +1,10 @@
 [ {
-  "approved" : true,
-  "approvedBy" : 3,
   "enrolledStudents" : [ 1 ],
   "id" : 1,
   "instructorId" : 2,
   "lessons" : [ ],
-  "pending" : false,
   "title" : "Empty Course - Planning Phase"
 }, {
-  "approved" : true,
-  "approvedBy" : 3,
-  "enrolledStudents" : [ 1 ],
-  "id" : 2,
-  "instructorId" : 2,
-  "lessons" : [ {
-    "content" : "In this lesson, we'll explore what programming is and why it's important in today's digital world. We'll cover basic concepts and set up our development environment.",
-    "id" : 1,
-    "studentProgress" : {
-      "1" : true
-    },
-    "title" : "Getting Started with Programming"
-  }, {
-    "content" : "Learn about variables, constants, and different data types available in programming languages. We'll practice declaring and using variables in practical examples.",
-    "id" : 2,
-    "studentProgress" : {
-      "1" : false
-    },
-    "title" : "Variables and Data Types"
-  } ],
-  "pending" : false,
-  "title" : "Introduction to Programming"
-}, {
-  "approved" : true,
-  "approvedBy" : 3,
   "enrolledStudents" : [ 1 ],
   "id" : 3,
   "instructorId" : 2,
@@ -51,11 +23,28 @@
     },
     "title" : "CSS Styling"
   } ],
-  "pending" : false,
   "title" : "Web Development Fundamentals"
 }, {
-  "approved" : true,
-  "approvedBy" : 3,
+  "enrolledStudents" : [ 1 ],
+  "id" : 2,
+  "instructorId" : 2,
+  "lessons" : [ {
+    "content" : "In this lesson, we'll explore what programming is and why it's important in today's digital world. We'll cover basic concepts and set up our development environment.",
+    "id" : 1,
+    "studentProgress" : {
+      "1" : true
+    },
+    "title" : "Getting Started with Programming"
+  }, {
+    "content" : "Learn about variables, constants, and different data types available in programming languages. We'll practice declaring and using variables in practical examples.",
+    "id" : 2,
+    "studentProgress" : {
+      "1" : false
+    },
+    "title" : "Variables and Data Types"
+  } ],
+  "title" : "Introduction to Programming"
+}, {
   "enrolledStudents" : [ 1 ],
   "id" : 4,
   "instructorId" : 2,
@@ -88,49 +77,5 @@
     },
     "title" : "Applications of Integration"
   } ],
-  "pending" : false,
   "title" : "Advanced Mathematics"
-}, {
-  "approved" : false,
-  "approvedBy" : null,
-  "enrolledStudents" : [ ],
-  "id" : 5,
-  "instructorId" : 2,
-  "lessons" : [ {
-    "content" : "Learn the basics of data analysis and how to work with datasets using Python and pandas.",
-    "id" : 9,
-    "studentProgress" : { },
-    "title" : "Introduction to Data Analysis"
-  }, {
-    "content" : "Explore different data visualization techniques and tools to present data effectively.",
-    "id" : 10,
-    "studentProgress" : { },
-    "title" : "Data Visualization"
-  } ],
-  "pending" : true,
-  "title" : "Data Science Fundamentals"
-}, {
-  "approved" : false,
-  "approvedBy" : null,
-  "enrolledStudents" : [ ],
-  "id" : 6,
-  "instructorId" : 2,
-  "lessons" : [ {
-    "content" : "Get started with React Native and learn how to build cross-platform mobile applications.",
-    "id" : 11,
-    "studentProgress" : { },
-    "title" : "Introduction to React Native"
-  }, {
-    "content" : "Learn about React Native components and how to implement navigation between screens.",
-    "id" : 12,
-    "studentProgress" : { },
-    "title" : "UI Components and Navigation"
-  }, {
-    "content" : "Connect your mobile app to backend services and handle API requests and responses.",
-    "id" : 13,
-    "studentProgress" : { },
-    "title" : "Working with APIs"
-  } ],
-  "pending" : true,
-  "title" : "Mobile App Development"
-}]
+} ]

@@ -42,7 +42,6 @@ public class StudentService {
         student.setLessonProgress(progress);
 
         student.setId(user.getId());
-        student.setCertificates(user.getCertificates());
         student.setEmail(user.getEmail());
         student.setPassword(user.getPassword());
         student.setName(user.getName());
@@ -67,30 +66,6 @@ public class StudentService {
         }
 
         return lessons;
-    }
-
-    public static List<Lesson> getEnrolledLessonsByCourse(int studentId, int courseId) {
-        List<Lesson> lessons = new ArrayList<>();
-
-        for (Course c : getEnrolledCourses(studentId)) {
-            if (c.getId() == courseId) {
-                lessons.addAll(c.getLessons());
-            }
-        }
-
-        return lessons;
-    }
-
-    public static boolean isEnrolled(int studentId, int courseId) {
-        Course course = courseDb.getCourseById(courseId);
-
-        if (course != null) {
-            for (Integer id : course.getEnrolledStudents()) {
-                if (id == studentId) return true;
-            }
-        }
-
-        return false;
     }
 
     public static void enroll(int studentId, int courseId) {
