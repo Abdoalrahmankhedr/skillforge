@@ -60,7 +60,7 @@ public class CoursesView extends JPanel {
     private void filterCourses() {
         String text = searchfeild.getText().trim();
         List<Course> filteredCourses = new ArrayList<>();
-        for (Course c : db.getRecords()) {
+        for (Course c : db.getApprovedCourses()) {
             if (text.equals("") || text.equals("Search Course By name...") ||
                     c.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filteredCourses.add(c);

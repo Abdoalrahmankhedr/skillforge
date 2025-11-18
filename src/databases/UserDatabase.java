@@ -1,8 +1,11 @@
 package databases;
 
+import models.Certificate;
 import models.User;
 import security.PasswordService;
+import services.CourseService;
 
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 // Andrew :)
@@ -23,9 +26,16 @@ import java.util.regex.Pattern;
 
 public class UserDatabase extends Database<User> {
     private static UserDatabase instance;
+    private int certificateIndex = 1;
 
     private UserDatabase(String filename) {
         super(filename, User.class);
+
+        for (User u : getRecords()) {
+            for (Certificate c : u.getCertificates()) {
+                this.certificateIndex = Math.max(this.certificateIndex, c.getId());
+            }
+        }
     }
 
     public static UserDatabase getInstance() {
@@ -92,6 +102,28 @@ public class UserDatabase extends Database<User> {
         deleteRecord(id);
         /* Add the changed one */
         insertRecord(user);
+    }
+
+    public void issueCertificate(int userId, int courseId) {
+        /* Issues a certificate to a user, only if the course is complete */
+        if (CourseService.isComplete(courseId, userId)) {
+            User user = getRecordById(userId);
+
+            if (user != null) {
+                Certificate certificate = new Certificate();
+                certificate.setIssued(LocalDate.now());
+                certificate.setCourseId(courseId);
+                certificate.setUserId(userId);
+                certificate.setId(++this.certificateIndex);
+
+                user.addCertificate(certificate);
+
+                /* Remove the old one */
+                deleteRecord(userId);
+                /* Add the changed one */
+                insertRecord(user);
+            }
+        }
     }
 
     public Boolean login(String email, String password) {
