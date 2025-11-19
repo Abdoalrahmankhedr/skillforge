@@ -2,13 +2,12 @@ package services;
 
 import databases.CourseDatabase;
 import databases.UserDatabase;
-import models.Course;
-import models.Instructor;
-import models.Lesson;
-import models.User;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.stream.Collectors;
 
 //Hassan & Andrew :)
@@ -37,7 +36,6 @@ public class InstructorService {
         return instructor;
     }
 
-    /* CREATE */
     public static void createCourse(int instructorId, String courseTitle, List<Lesson> lessons) {
         courseDb.addCourse(courseTitle, instructorId, lessons);
     }
@@ -50,7 +48,33 @@ public class InstructorService {
         courseDb.addLesson(courseId, title, content);
     }
 
-    /* READ */
+    public static Question createQuestion(String question, Map<String, Boolean> choices) {
+        /* You can add as many choices as needed, each will have a String text and Boolean correct  */
+        /* e.g. {
+                    "Incorrect Answer": false,
+                    "Correct Answer": true
+                }
+        */
+        Question q = new Question();
+        q.setHeader(question);
+
+        if (choices.values().stream().filter((c) -> c).count() > 1) {
+            System.out.println("[InstructorService]: Question must only have one correct choice");
+            return null;
+        }
+
+        for (Map.Entry<String, Boolean> entry : choices.entrySet()) {
+            q.addChoice(entry.getKey(), entry.getValue());
+        }
+
+        return q;
+    }
+
+    public static void createQuiz(int lessonId, int retries, int passingQuestions, List<Question> questions) {
+        int passing = (passingQuestions <= 0) ? 0 : (Math.min(passingQuestions, questions.size()));
+        courseDb.addQuiz(lessonId, retries, ((double) passing / (double) questions.size()), questions);
+    }
+
     public static List<Course> getCourses(int instructorId) {
         return courseDb.getRecords().stream()
                 .filter((c) -> c.getInstructorId() == instructorId)
@@ -81,7 +105,17 @@ public class InstructorService {
                 .collect(Collectors.toList());
     }
 
-    /* UPDATE / EDIT COURSE */
+    public static void updateQuiz(int quizId, int retries, int passingQuestions, List<Question> questions) {
+        int passing = (passingQuestions <= 0) ? 0 : (Math.min(passingQuestions, questions.size()));
+        Quiz quiz = courseDb.getQuizById(quizId);
+
+        quiz.setRetries(Math.max(retries, 0));
+        quiz.setPassingScore(Math.max(Math.min(((double) passing / (double) questions.size()), 100d), 0d));
+        quiz.setQuestions(questions);
+
+        courseDb.updateQuiz(quiz);
+    }
+
     public static void editCourse(int courseId, String newTitle, List<Lesson> newLessons) {
         Course course = courseDb.getCourseById(courseId);
         if (course == null) {
@@ -94,12 +128,10 @@ public class InstructorService {
                 newLessons != null ? newLessons : course.getLessons());
     }
 
-    /* DELETE COURSE */
     public static void deleteCourse(int courseId) {
         courseDb.deleteCourse(courseId);
     }
 
-    /* UPDATE / EDIT LESSON */
     public static void editLesson(int lessonId, String newTitle, String newContent) {
         Lesson lesson = courseDb.getLessonById(lessonId);
         if (lesson == null) {
@@ -113,7 +145,6 @@ public class InstructorService {
         courseDb.updateLesson(lesson);
     }
 
-    /* DELETE LESSON */
     public static void deleteLesson(int lessonId) {
         courseDb.deleteLesson(lessonId);
     }
