@@ -2,10 +2,7 @@ package services;
 
 import databases.CourseDatabase;
 import databases.UserDatabase;
-import models.Course;
-import models.Lesson;
-import models.Student;
-import models.User;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +30,7 @@ public class StudentService {
 
         // Checks for all lessons within all enrolled courses
         // only returns the lessons where the student has either started or completed
-        Map<Integer, Boolean> progress = new HashMap<>();
+        Map<Integer, Progress> progress = new HashMap<>();
         for (Lesson l : getEnrolledLessons(studentId)) {
             if (l.getStudentProgress().getOrDefault(studentId, null) != null) {
                 progress.put(l.getId(), l.getStudentProgress().get(studentId));
@@ -103,5 +100,10 @@ public class StudentService {
 
     public static void completeLesson(int studentId, int lessonId) {
         courseDb.completeLesson(studentId, lessonId);
+    }
+
+    public static void takeAttempt(int studentId, int quizId, int correctQuestions) {
+        /* The student has taken the quiz, and has achieved a correct {correctQuestions} number of questions */
+        courseDb.addQuizAttempt(studentId, quizId, correctQuestions);
     }
 }

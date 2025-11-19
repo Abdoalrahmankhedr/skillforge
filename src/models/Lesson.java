@@ -21,6 +21,19 @@ public class Lesson implements Model {
         this.studentProgress.put(studentId, progress);
     }
 
+    public void addAttempt(QuizAttempt attempt) {
+        if (this.studentProgress.getOrDefault(attempt.getUserId(), null) == null) {
+            Progress progress = new Progress();
+            progress.setUserId(attempt.getUserId());
+            progress.addAttempt(attempt);
+        } else {
+            Progress progress = this.studentProgress.get(attempt.getUserId());
+            if (progress.getAttempts().size() < this.quiz.getRetries()) {
+                progress.addAttempt(attempt);
+            }
+        }
+    }
+
     public void markAsComplete(int studentId) {
         if (quiz != null) {
             // There must be a quiz to allow completing a lesson

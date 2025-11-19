@@ -1,9 +1,6 @@
 package databases;
 
-import models.Course;
-import models.Lesson;
-import models.Question;
-import models.Quiz;
+import models.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -149,6 +146,21 @@ public class CourseDatabase extends Database<Course> {
         quiz.setPassingScore(Math.max(Math.min(passingScore, 100d), 0d));
 
         lesson.setQuiz(quiz);
+        updateLesson(lesson);
+    }
+
+    public void addQuizAttempt(int studentId, int quizId, int correctQuestions) {
+        Lesson lesson = getLessonByQuiz(quizId);
+        Quiz quiz = lesson.getQuiz();
+
+        QuizAttempt attempt = new QuizAttempt();
+        attempt.setQuizId(quizId);
+        attempt.setUserId(studentId);
+        attempt.setCorrectQuestions(Math.max(correctQuestions, 0));
+        attempt.setScore(((double) correctQuestions / (double) quiz.getQuestions().size()));
+        attempt.setPassed(attempt.getScore() >= quiz.getPassingScore());
+
+        lesson.addAttempt(attempt);
         updateLesson(lesson);
     }
 
