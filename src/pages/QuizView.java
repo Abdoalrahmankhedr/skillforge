@@ -289,33 +289,22 @@ public class QuizView extends JPanel {
                 radioButton.setAlignmentX(Component.LEFT_ALIGNMENT);
                 radioButton.setEnabled(!isReviewMode);
                 
-                // Set selection if this is student's answer
                 if (isThisStudentAnswer) {
                     radioButton.setSelected(true);
                 }
                 
-                // Color coding in review mode
                 if (isReviewMode) {
-                    // Determine if this is student's wrong answer
                     boolean isWrongAnswer = isThisStudentAnswer && !isThisChoiceCorrect;
                     
                     if (isThisChoiceCorrect) {
-                        // Correct answer - always green (whether student selected it or not)
                         radioButton.setForeground(Color.GREEN);
-                        if (isThisStudentAnswer) {
-                            radioButton.setText(radioButton.getText() + " ✓ (Your Answer - Correct)");
-                        } else {
-                            radioButton.setText(radioButton.getText() + " ✓ (Correct Answer)");
-                        }
                         radioButton.setOpaque(true);
                         radioButton.setBackground(new Color(230, 255, 230));
                     } else if (isWrongAnswer) {
                         // Student's wrong answer - red (student selected this but it's wrong)
                         radioButton.setForeground(Color.RED);
-                        radioButton.setText(radioButton.getText() + " ✗ (Your Answer - Wrong)");
                         radioButton.setOpaque(true);
                         radioButton.setBackground(new Color(255, 230, 230));
-                        // Make sure red takes precedence visually
                         radioButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
                     } else {
                         // Other options (not correct, not student's answer) - gray
@@ -323,13 +312,12 @@ public class QuizView extends JPanel {
                         radioButton.setOpaque(false);
                     }
                 } else {
-                    // In quiz mode, add action listener
                     final int questionIdx = qIndex;
                     final int choiceIdx = i;
                     radioButton.addActionListener(e -> {
                         answers.put(questionIdx, choiceIdx);
                         updateAnsweredCount();
-                        // Save answer to database
+
                         CourseDatabase.getInstance().updateQuizAttemptAnswers(
                             currentStudentId, currentQuiz.getId(), currentAttemptIndex, answers
                         );

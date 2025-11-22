@@ -158,7 +158,7 @@ public class CourseDatabase extends Database<Course> {
         if (lesson == null) {
             return; // Lesson not found
         }
-        
+
         Quiz quiz = lesson.getQuiz();
         if (quiz == null) {
             return; // Lesson doesn't have a quiz
@@ -180,23 +180,23 @@ public class CourseDatabase extends Database<Course> {
         if (lesson == null) {
             return null; // Lesson not found
         }
-        
+
         Quiz quiz = lesson.getQuiz();
         if (quiz == null) {
             return null; // Lesson doesn't have a quiz
         }
-        
+
         // Check if student has attempts remaining
         Progress progress = lesson.getStudentProgress().getOrDefault(studentId, null);
         if (progress == null) {
             lesson.addStudent(studentId);
             progress = lesson.getStudentProgress().get(studentId);
         }
-        
+
         if (progress.getAttempts() == null) {
             progress.setAttempts(new java.util.ArrayList<>());
         }
-        
+
         if (progress.getAttempts().size() >= quiz.getRetries()) {
             return null; // No attempts remaining
         }
@@ -221,7 +221,7 @@ public class CourseDatabase extends Database<Course> {
         if (lesson == null) {
             return; // Lesson not found
         }
-        
+
         Progress progress = lesson.getStudentProgress().get(studentId);
         if (progress != null && progress.getAttempts() != null && attemptIndex < progress.getAttempts().size()) {
             QuizAttempt attempt = progress.getAttempts().get(attemptIndex);
@@ -235,14 +235,14 @@ public class CourseDatabase extends Database<Course> {
         if (lesson == null) {
             return; // Lesson not found
         }
-        
+
         Quiz quiz = lesson.getQuiz();
         if (quiz == null) {
             return; // Lesson doesn't have a quiz
         }
-        
+
         Progress progress = lesson.getStudentProgress().get(studentId);
-        
+
         if (progress != null && attemptIndex < progress.getAttempts().size()) {
             QuizAttempt attempt = progress.getAttempts().get(attemptIndex);
             attempt.setQuestionAnswers(answers);
@@ -255,7 +255,7 @@ public class CourseDatabase extends Database<Course> {
             for (int i = 0; i < quiz.getQuestions().size(); i++) {
                 Question question = quiz.getQuestions().get(i);
                 Integer studentAnswer = answers.get(i);
-                
+
                 if (studentAnswer != null) {
                     boolean isCorrect = false;
                     int correctChoiceIndex = -1;
@@ -265,7 +265,7 @@ public class CourseDatabase extends Database<Course> {
                             break;
                         }
                     }
-                    
+
                     if (studentAnswer == correctChoiceIndex) {
                         isCorrect = true;
                         correctCount++;
@@ -282,13 +282,11 @@ public class CourseDatabase extends Database<Course> {
             attempt.setScore(((double) correctCount / (double) quiz.getQuestions().size()) * 100);
             attempt.setPassed(attempt.getScore() >= quiz.getPassingScore());
 
-            // Mark lesson as complete if passed
-            if (attempt.isPassed()) {
-                lesson.markAsComplete(studentId);
-            }
+            // Re-evaluate lesson completion - mark as complete only if at least one attempt passed
+            lesson.markAsComplete(studentId);
 
             updateLesson(lesson);
-            
+
             // Check if course is now complete and issue certificate if needed
             Course course = getCourseByLesson(lesson.getId());
             if (course != null) {
@@ -309,9 +307,9 @@ public class CourseDatabase extends Database<Course> {
         if (lesson == null) {
             return; // Lesson not found
         }
-        
+
         Progress progress = lesson.getStudentProgress().get(studentId);
-        
+
         if (progress != null && progress.getAttempts() != null && attemptIndex < progress.getAttempts().size()) {
             QuizAttempt attempt = progress.getAttempts().get(attemptIndex);
             attempt.setFinishTime(java.time.LocalDateTime.now());

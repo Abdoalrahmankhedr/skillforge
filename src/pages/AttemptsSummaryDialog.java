@@ -44,7 +44,7 @@ public class AttemptsSummaryDialog extends JDialog {
         headerPanel.add(new JLabel(String.valueOf(attemptsUsed)));
         
         // Attempts table
-        String[] columnNames = {"#", "Date/Time", "Status", "Score", "Correct", "Wrong", "Actions"};
+        String[] columnNames = {"#", "Date/Time", "Status", "Score", "Correct", "Wrong"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -81,37 +81,6 @@ public class AttemptsSummaryDialog extends JDialog {
                 });
             }
         }
-        
-        // Add button renderer for actions column
-        attemptsTable.getColumn("Actions").setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
-            JButton button = new JButton("View Details");
-            button.setBackground(new Color(0, 102, 204));
-            button.setForeground(Color.WHITE);
-            button.setFocusPainted(false);
-            return button;
-        });
-        
-        attemptsTable.getColumn("Actions").setCellEditor(new DefaultCellEditor(new JTextField()) {
-            @Override
-            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-                JButton button = new JButton("View Details");
-                button.setBackground(new Color(0, 102, 204));
-                button.setForeground(Color.WHITE);
-                button.setFocusPainted(false);
-                
-                AttemptsSummaryDialog dialogRef = AttemptsSummaryDialog.this;
-                button.addActionListener(e -> {
-                    if (progress != null && row < progress.getAttempts().size()) {
-                        QuizAttempt attempt = progress.getAttempts().get(row);
-                        new AttemptDetailsDialog(dialogRef, lesson, attempt, studentId).setVisible(true);
-                    }
-                    stopCellEditing();
-                });
-                
-                return button;
-            }
-        });
-        
         JScrollPane scrollPane = new JScrollPane(attemptsTable);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Attempts"));
         

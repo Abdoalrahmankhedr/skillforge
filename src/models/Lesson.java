@@ -37,16 +37,13 @@ public class Lesson implements Model {
     public void markAsComplete(int studentId) {
         if (quiz != null) {
             // There must be a quiz to allow completing a lesson
-            int policy = quiz.getRetries();
             Progress progress = this.studentProgress.getOrDefault(studentId, null);
 
-            if ((progress != null) &&
-                (progress.getAttempts().size() <= policy) &&
-                (progress.getAttempts().stream().anyMatch(QuizAttempt::isPassed))
-            ) {
-                // Only if the student has progress, and it is within retry policy
-                // and that at least one of the attempts has passed
-                progress.setLessonComplete(true);
+            if (progress != null && progress.getAttempts() != null) {
+                // Mark lesson as complete only if at least one attempt has passed
+                boolean hasPassedAttempt = progress.getAttempts().stream()
+                        .anyMatch(QuizAttempt::isPassed);
+                progress.setLessonComplete(hasPassedAttempt);
             }
         }
     }

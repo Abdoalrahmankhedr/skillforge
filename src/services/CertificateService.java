@@ -1,13 +1,7 @@
 package services;
 
 import databases.CourseDatabase;
-import databases.UserDatabase;
-import models.Certificate;
-import models.Course;
-import models.Lesson;
-import models.Progress;
-import models.QuizAttempt;
-import models.Student;
+import models.*;
 import services.CourseService;
 import services.InstructorService;
 import services.StudentService;
@@ -27,7 +21,6 @@ import java.util.List;
 
 public class CertificateService {
     private static final CourseDatabase courseDb = CourseDatabase.getInstance();
-    private static final UserDatabase userDb = UserDatabase.getInstance();
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
 
@@ -65,7 +58,7 @@ public class CertificateService {
             // Fallback to certificate issue date if no quiz attempt found
             lastAttemptDate = certificate.getIssued().atStartOfDay();
         }
-        
+
         // Get instructor name
         String instructorName = InstructorService.getInstructor(course.getInstructorId()).getName();
 
@@ -76,7 +69,7 @@ public class CertificateService {
         String certCode = generateCertificateCode(certificate.getId(), studentId, courseId);
 
         String filename = String.format("certificate_%s_%s_%s_%s.pdf",
-            safeStudentName, safeCourseTitle, issueDate, certCode);
+                safeStudentName, safeCourseTitle, issueDate, certCode);
         String filepath = new File(certDir, filename).getAbsolutePath();
 
         try (PDDocument document = new PDDocument()) {
@@ -85,135 +78,97 @@ public class CertificateService {
             document.addPage(page);
 
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                // Background color (light blue)
-                contentStream.setNonStrokingColor(240, 248, 255);
-                contentStream.addRect(0, 0, 792, 612);
+                // Colorful gradient background (blue to purple)
+                for (int y = 0; y < 612; y++) {
+                    float ratio = (float) y / 612;
+                    int r = (int) (135 + ratio * (75 - 135)); // 135 to 75
+                    int g = (int) (206 + ratio * (0 - 206)); // 206 to 0
+                    int b = (int) (250 + ratio * (130 - 250)); // 250 to 130
+                    contentStream.setNonStrokingColor(new Color(r, g, b));
+                    contentStream.addRect(0, y, 792, 1);
+                    contentStream.fill();
+                }
+
+                // White content box with rounded appearance
+                contentStream.setNonStrokingColor(Color.WHITE);
+                contentStream.addRect(100, 200, 592, 212);
                 contentStream.fill();
 
-                // Border (gold)
-                contentStream.setStrokingColor(218, 165, 32);
-                contentStream.setLineWidth(10);
-                contentStream.addRect(30, 30, 732, 552);
-                contentStream.stroke();
-
-                // Inner border (lighter gold)
-                contentStream.setStrokingColor(255, 215, 0);
+                // Border for content box
+                contentStream.setStrokingColor(new Color(70, 130, 180));
                 contentStream.setLineWidth(3);
-                contentStream.addRect(50, 50, 692, 512);
+                contentStream.addRect(100, 200, 592, 212);
                 contentStream.stroke();
 
-                // Watermark text (subtle)
-                contentStream.setNonStrokingColor(200, 200, 200);
+                // Title
+                contentStream.setNonStrokingColor(new Color(25, 25, 112));
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 60);
-                contentStream.newLineAtOffset(396, 306);
-                contentStream.showText("CERTIFICATE OF COMPLETION");
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 24);
+                String titleText = "Certificate of Completion";
+                float titleWidth = PDType1Font.HELVETICA_BOLD.getStringWidth(titleText) / 1000 * 24;
+                contentStream.newLineAtOffset((792 - titleWidth) / 2, 360);
+                contentStream.showText(titleText);
                 contentStream.endText();
-                
-                // Main Title
-                contentStream.setNonStrokingColor(0, 0, 128);
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 48);
-                float titleWidth = PDType1Font.HELVETICA_BOLD.getStringWidth("Certificate of Completion") / 1000 * 48;
-                contentStream.newLineAtOffset((792 - titleWidth) / 2, 480);
-                contentStream.showText("Certificate of Completion");
-                contentStream.endText();
-                
-                // This is to certify text
-                contentStream.setNonStrokingColor(0, 0, 0);
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 16);
-                String certText = "This is to certify that";
-                float certTextWidth = PDType1Font.HELVETICA.getStringWidth(certText) / 1000 * 16;
-                contentStream.newLineAtOffset((792 - certTextWidth) / 2, 380);
-                contentStream.showText(certText);
-                contentStream.endText();
-                
-                // Student Name (prominent)
-                contentStream.setNonStrokingColor(0, 51, 102);
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 36);
-                String studentName = student.getName();
-                float nameWidth = PDType1Font.HELVETICA_BOLD.getStringWidth(studentName) / 1000 * 36;
-                contentStream.newLineAtOffset((792 - nameWidth) / 2, 320);
-                contentStream.showText(studentName);
-                contentStream.endText();
-                
-                // Has successfully completed text
-                contentStream.setNonStrokingColor(0, 0, 0);
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 16);
-                String completedText = "has successfully completed";
-                float completedTextWidth = PDType1Font.HELVETICA.getStringWidth(completedText) / 1000 * 16;
-                contentStream.newLineAtOffset((792 - completedTextWidth) / 2, 260);
-                contentStream.showText(completedText);
-                contentStream.endText();
-                
-                // Course Title
-                contentStream.setNonStrokingColor(0, 102, 204);
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 28);
-                String courseTitle = course.getTitle();
-                float courseTitleWidth = PDType1Font.HELVETICA_BOLD.getStringWidth(courseTitle) / 1000 * 28;
-                // If course title is too long, wrap it
-                if (courseTitleWidth > 650) {
-                    contentStream.setFont(PDType1Font.HELVETICA_BOLD, 20);
-                    courseTitleWidth = PDType1Font.HELVETICA_BOLD.getStringWidth(courseTitle) / 1000 * 20;
-                }
-                contentStream.newLineAtOffset((792 - courseTitleWidth) / 2, 210);
-                contentStream.showText(courseTitle);
-                contentStream.endText();
-                
-                // Details block
-                contentStream.setNonStrokingColor(0, 0, 0);
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                String issueDateText = "Issued on: " + lastAttemptDate.format(DATE_FORMATTER);
-                float issueDateWidth = PDType1Font.HELVETICA.getStringWidth(issueDateText) / 1000 * 12;
-                contentStream.newLineAtOffset((792 - issueDateWidth) / 2, 150);
-                contentStream.showText(issueDateText);
-                contentStream.endText();
-                
-                // Certificate Code
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 10);
-                String codeText = "Certificate Code: " + certCode;
-                float codeWidth = PDType1Font.HELVETICA_OBLIQUE.getStringWidth(codeText) / 1000 * 10;
-                contentStream.newLineAtOffset((792 - codeWidth) / 2, 120);
-                contentStream.showText(codeText);
-                contentStream.endText();
-                
-                // Signature lines
-                contentStream.setNonStrokingColor(0, 0, 0);
-                contentStream.setLineWidth(1);
-                contentStream.moveTo(150, 80);
-                contentStream.lineTo(300, 80);
-                contentStream.stroke();
-                
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                contentStream.newLineAtOffset(150, 65);
-                contentStream.showText("Instructor Signature");
-                contentStream.endText();
-                
-                // Instructor Name (centered under signature line from 150 to 300)
+
+                // Certificate ID
+                contentStream.setNonStrokingColor(Color.BLACK);
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-                float instructorNameWidth = PDType1Font.HELVETICA_BOLD.getStringWidth(instructorName) / 1000 * 14;
-                // Center of signature line is at 225 (middle of 150-300)
-                float instructorX = 225 - (instructorNameWidth / 2);
-                contentStream.newLineAtOffset(instructorX, 50);
-                contentStream.showText(instructorName);
+                String certIdLabel = "Certificate ID:";
+                contentStream.newLineAtOffset(150, 330);
+                contentStream.showText(certIdLabel);
                 contentStream.endText();
-                
-                contentStream.moveTo(492, 80);
-                contentStream.lineTo(642, 80);
-                contentStream.stroke();
-                
+
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                contentStream.newLineAtOffset(492, 65);
-                contentStream.showText("Date");
+                contentStream.setFont(PDType1Font.HELVETICA, 14);
+                String certIdValue = String.valueOf(certificate.getId());
+                contentStream.newLineAtOffset(300, 330);
+                contentStream.showText(certIdValue);
+                contentStream.endText();
+
+                // Course ID
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+                String courseIdLabel = "Course ID:";
+                contentStream.newLineAtOffset(150, 300);
+                contentStream.showText(courseIdLabel);
+                contentStream.endText();
+
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA, 14);
+                String courseIdValue = String.valueOf(certificate.getCourseId());
+                contentStream.newLineAtOffset(300, 300);
+                contentStream.showText(courseIdValue);
+                contentStream.endText();
+
+                // User ID
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+                String userIdLabel = "User ID:";
+                contentStream.newLineAtOffset(150, 270);
+                contentStream.showText(userIdLabel);
+                contentStream.endText();
+
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA, 14);
+                String userIdValue = String.valueOf(certificate.getUserId());
+                contentStream.newLineAtOffset(300, 270);
+                contentStream.showText(userIdValue);
+                contentStream.endText();
+
+                // Issued Date
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+                String issuedLabel = "Issued Date:";
+                contentStream.newLineAtOffset(150, 240);
+                contentStream.showText(issuedLabel);
+                contentStream.endText();
+
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA, 14);
+                String issuedValue = certificate.getIssued().format(DATE_FORMATTER);
+                contentStream.newLineAtOffset(300, 240);
+                contentStream.showText(issuedValue);
                 contentStream.endText();
             }
 
@@ -229,6 +184,7 @@ public class CertificateService {
 
     /**
      * Downloads the certificate PDF by triggering a file download
+     *
      * @param filepath The path to the PDF file
      * @return true if download was successful, false otherwise
      */
@@ -254,24 +210,17 @@ public class CertificateService {
         return String.format("CERT-%04d-%04d-%04d", certId, studentId, courseId);
     }
 
-    /**
-     * Sanitizes a filename by removing invalid characters
-     */
     private static String sanitizeFilename(String name) {
-        if (name == null) return "unknown";
-        return name.replaceAll("[^a-zA-Z0-9\\s-_]", "").replaceAll("\\s+", "_").substring(0, Math.min(name.length(), 30));
+        if (name == null)
+            return "unknown";
+        return name.replaceAll("[^a-zA-Z0-9\\s-_]", "").replaceAll("\\s+", "_").substring(0,
+                Math.min(name.length(), 30));
     }
 
-    /**
-     * Checks if a student has completed a course
-     */
     public static boolean isCourseCompleted(int studentId, int courseId) {
         return CourseService.isComplete(courseId, studentId);
     }
 
-    /**
-     * Gets or creates a certificate for a student and course
-     */
     public static Certificate getOrCreateCertificate(int studentId, int courseId) {
         CourseService courseService = new CourseService();
         Certificate cert = courseService.getCertificate(courseId, studentId);
@@ -291,20 +240,14 @@ public class CertificateService {
 
         return cert;
     }
-    
-    /**
-     * Gets the date of the last quiz attempt from the last lesson with a quiz in the course
-     * @param course The course
-     * @param studentId The student's ID
-     * @return The LocalDateTime of the last quiz attempt, or null if no quiz attempts found
-     */
+
     private static LocalDateTime getLastQuizAttemptDate(Course course, int studentId) {
         if (course == null || course.getLessons() == null || course.getLessons().isEmpty()) {
             return null;
         }
-        
+
         List<Lesson> lessons = course.getLessons();
-        
+
         // Find the last lesson (highest ID) with a quiz that has attempts
         Lesson lastLessonWithQuiz = null;
         for (int i = lessons.size() - 1; i >= 0; i--) {
@@ -317,23 +260,21 @@ public class CertificateService {
                 }
             }
         }
-        
+
         if (lastLessonWithQuiz == null) {
             return null;
         }
-        
+
         // Get the last attempt from this last lesson
         Progress progress = lastLessonWithQuiz.getStudentProgress().get(studentId);
         if (progress == null || progress.getAttempts() == null || progress.getAttempts().isEmpty()) {
             return null;
         }
-        
+
         List<QuizAttempt> attempts = progress.getAttempts();
         QuizAttempt lastAttempt = attempts.get(attempts.size() - 1);
-        
+
         // Return finishTime if available, otherwise startTime
-        return lastAttempt.getFinishTime() != null ? 
-            lastAttempt.getFinishTime() : lastAttempt.getStartTime();
+        return lastAttempt.getFinishTime() != null ? lastAttempt.getFinishTime() : lastAttempt.getStartTime();
     }
 }
-

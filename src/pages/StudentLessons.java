@@ -208,8 +208,14 @@ public class StudentLessons extends JPanel {
             }
 
             if (previousLesson.getQuiz() != null) {
+                // Check if at least one quiz attempt passed
                 if (progress.getAttempts() == null || progress.getAttempts().isEmpty()) {
                     return false;
+                }
+                boolean hasPassedAttempt = progress.getAttempts().stream()
+                        .anyMatch(QuizAttempt::isPassed);
+                if (!hasPassedAttempt) {
+                    return false; // No passed attempts
                 }
             } else {
                 if (!progress.isLessonComplete()) {
@@ -250,8 +256,10 @@ public class StudentLessons extends JPanel {
                     boolean isCompleted = false;
 
                     if (l.getQuiz() != null) {
+                        // Lesson is completed only if at least one quiz attempt passed
                         if (lessonProgress.getAttempts() != null && !lessonProgress.getAttempts().isEmpty()) {
-                            isCompleted = true;
+                            isCompleted = lessonProgress.getAttempts().stream()
+                                    .anyMatch(QuizAttempt::isPassed);
                         }
                     } else {
                         isCompleted = lessonProgress.isLessonComplete();
@@ -271,10 +279,11 @@ public class StudentLessons extends JPanel {
         Coursetitle.setText(course.getTitle());
         id.setText("CourseId:" + course.getId());
         lessons.setText("Lessons:" + total);
-        instructorname.setText(InstructorService.getInstructor(course.getInstructorId()).getName());
+        instructorname.setText("InstructorName:" + InstructorService.getInstructor(course.getInstructorId()).getName());
         Completed.setText("Completed:" + completed);
         uncompleted.setText("UnCompleted:" + unCompleted);
-        progress.setText(String.format("Progress: %.2f", (((((double) completed / (double) total)) * 100))) + "%");
+        double progressPercentage = total > 0 ? ((double) completed / (double) total) * 100 : 0.0;
+        progress.setText(String.format("Progress: %.2f%%", progressPercentage));
 
         JPanel lessonsPanel = new JPanel();
         lessonsPanel.setLayout(new BoxLayout(lessonsPanel, BoxLayout.Y_AXIS));

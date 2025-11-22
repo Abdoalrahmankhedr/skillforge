@@ -24,7 +24,7 @@ public class CourseService {
         if (course == null) {
             return false;
         }
-        
+
         List<Lesson> courseLessons = course.getLessons();
         if (courseLessons.isEmpty()) {
             return false;
@@ -33,17 +33,22 @@ public class CourseService {
         // Check each lesson in the course
         for (Lesson l : courseLessons) {
             Progress progress = l.getStudentProgress().getOrDefault(studentId, null);
-            
+
             if (progress == null) {
                 return false; // Student hasn't started this lesson
             }
-            
-            // For quiz-based lessons, check if student has made at least one attempt
+
+            // For quiz-based lessons, check if student has passed at least one attempt
             if (l.getQuiz() != null) {
                 if (progress.getAttempts() == null || progress.getAttempts().isEmpty()) {
                     return false; // No attempts made yet
                 }
-                // Course is complete if student made at least one attempt in each lesson
+                // Lesson is complete only if at least one attempt passed
+                boolean hasPassedAttempt = progress.getAttempts().stream()
+                        .anyMatch(QuizAttempt::isPassed);
+                if (!hasPassedAttempt) {
+                    return false; // No passed attempts
+                }
             } else {
                 // For non-quiz lessons, check if lesson is marked complete
                 if (!progress.isLessonComplete()) {
@@ -57,7 +62,7 @@ public class CourseService {
 
     public Certificate getCertificate(int courseId, int studentId) {
         Student student = StudentService.getStudent(studentId);
-        
+
         if (student == null || student.getCertificates() == null) {
             return null;
         }

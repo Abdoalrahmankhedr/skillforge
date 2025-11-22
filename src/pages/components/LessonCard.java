@@ -9,7 +9,7 @@ public class LessonCard extends JPanel {
     private JLabel contentLabel;
     public JButton takeQuizBtn;
     public JButton attemptsHistoryBtn;
-    
+
     public LessonCard() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -32,7 +32,7 @@ public class LessonCard extends JPanel {
         takeQuizBtn.setOpaque(true);
         takeQuizBtn.setContentAreaFilled(true);
         takeQuizBtn.setBorderPainted(true);
-        
+
         attemptsHistoryBtn = new JButton("📋");
         attemptsHistoryBtn.setPreferredSize(new Dimension(35, 30));
         attemptsHistoryBtn.setBackground(new Color(240, 240, 240));
@@ -42,7 +42,7 @@ public class LessonCard extends JPanel {
         attemptsHistoryBtn.setToolTipText("View Quiz Attempts History");
         attemptsHistoryBtn.setVisible(false);
         attemptsHistoryBtn.setEnabled(false);
-        
+
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setOpaque(false);
@@ -62,31 +62,33 @@ public class LessonCard extends JPanel {
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setOpaque(false);
         buttonPanel.add(Box.createVerticalGlue());
-        
+
         JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
         buttonRow.setOpaque(false);
         buttonRow.add(attemptsHistoryBtn);
         buttonRow.add(takeQuizBtn);
-        
+
         buttonPanel.add(buttonRow);
         buttonPanel.add(Box.createVerticalGlue());
-        
+
         add(buttonPanel, BorderLayout.EAST);
     }
 
-    public void setData(boolean state, String title, String content, boolean quizAvailable, 
-                       boolean hasAttempts, boolean allAttemptsUsed, ActionListener quizAction, ActionListener historyAction) {
+    public void setData(boolean state, String title, String content, boolean quizAvailable,
+                        boolean hasAttempts, boolean allAttemptsUsed, ActionListener quizAction, ActionListener historyAction) {
         takeQuizBtn.setVisible(state && quizAvailable);
         titleLabel.setText(title);
         contentLabel.setText("<html>" + content + "</html>");
-        
+
         if (quizAvailable) {
             if (allAttemptsUsed) {
                 takeQuizBtn.setText("Completed");
-                takeQuizBtn.setBackground(new Color(0, 150, 0)); // Dark green
+                takeQuizBtn.setBackground(new Color(0, 153, 0)); // Green completed color
                 takeQuizBtn.setForeground(Color.WHITE);
                 takeQuizBtn.setEnabled(false);
                 takeQuizBtn.setOpaque(true);
+                takeQuizBtn.setContentAreaFilled(true);
+                takeQuizBtn.setBorderPainted(false);
                 // Remove all action listeners when disabled
                 for (ActionListener al : takeQuizBtn.getActionListeners()) {
                     takeQuizBtn.removeActionListener(al);
@@ -97,7 +99,7 @@ public class LessonCard extends JPanel {
                 takeQuizBtn.setForeground(Color.WHITE);
                 takeQuizBtn.setEnabled(true);
                 takeQuizBtn.setOpaque(true);
-                
+
                 // Remove existing listeners from takeQuizBtn
                 for (ActionListener al : takeQuizBtn.getActionListeners()) {
                     takeQuizBtn.removeActionListener(al);
@@ -106,7 +108,7 @@ public class LessonCard extends JPanel {
                     takeQuizBtn.addActionListener(quizAction);
                 }
             }
-            
+
             // Show attempts history button if student has at least one previous attempt
             attemptsHistoryBtn.setVisible(hasAttempts);
             attemptsHistoryBtn.setEnabled(hasAttempts);
@@ -122,7 +124,7 @@ public class LessonCard extends JPanel {
             attemptsHistoryBtn.setVisible(false);
         }
     }
-    
+
     // Backward compatibility method
     public void setData(boolean state, String title, String content, boolean completed, ActionListener action) {
         setData(state, title, content, false, false, false, action, null);
