@@ -60,14 +60,22 @@ public class CourseDatabase extends Database<Course> {
         for (Course c : getRecords()) {
             c.getLessons().removeIf((t) -> t.getId() == id);
         }
+        saveToFile();
     }
 
     public void deleteQuiz(int id) {
         for (Course c : getRecords()) {
             for (Lesson l : c.getLessons()) {
                 if (l.getQuiz() != null && l.getQuiz().getId() == id) l.setQuiz(null);
+
+                // Delete all student attempts
+                for (Map.Entry<Integer, Progress> entry : l.getStudentProgress().entrySet()) {
+                    entry.getValue().removeAttempts(id);
+                }
             }
         }
+
+        saveToFile();
     }
 
     public Course getCourseById(int id) {return getRecordById(id);}

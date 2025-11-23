@@ -20,6 +20,10 @@ public class Progress {
         if (attempt.isPassed()) this.lessonComplete = true;
     }
 
+    public void removeAttempts(int quizId) {
+        this.attempts.removeIf((attempt -> attempt.getQuizId() == quizId));
+    }
+
     /* Getters & Setters */
     public int getUserId() {return userId;}
     public void setUserId(int userId) {this.userId = userId;}
