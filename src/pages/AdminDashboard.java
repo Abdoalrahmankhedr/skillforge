@@ -27,6 +27,14 @@ public class AdminDashboard extends JPanel {
         initComponents();
     }
 
+    public static void setAdmin(int adminId, String adminName) {
+        loggedInAdminId = adminId;
+        loggedInAdminName = adminName;
+        if (adminLabel != null) {
+            adminLabel.setText("Admin: " + loggedInAdminName);
+        }
+    }
+
     private void initComponents() {
         setLayout(new BorderLayout());
 
@@ -78,6 +86,7 @@ public class AdminDashboard extends JPanel {
         // Admin info & buttons
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(new Color(51, 153, 255));
+
         adminLabel = new JLabel("Admin: ");
         adminLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         adminLabel.setForeground(Color.BLACK);

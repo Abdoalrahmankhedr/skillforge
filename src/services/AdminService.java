@@ -19,7 +19,9 @@ public class AdminService {
         return (user.getRole().equalsIgnoreCase("Admin")) ? user : null;
     }
 
-    /** Get all pending courses */
+    // Courses Management
+
+    /** Get all pending courses that need admin review */
     public static List<Course> getPendingCourses() {
         return courseDb.getPendingCourses();
     }
@@ -63,7 +65,7 @@ public class AdminService {
     }
 
     /** Get course by ID */
-    public static Course getCourseById(int courseId) {
+    public Course getCourseById(int courseId) {
         return courseDb.getCourseById(courseId);
     }
 }
