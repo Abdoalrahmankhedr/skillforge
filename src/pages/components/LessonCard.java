@@ -120,7 +120,11 @@ public class LessonCard extends JPanel {
                 attemptsHistoryBtn.addActionListener(historyAction);
             }
         } else {
-            takeQuizBtn.setVisible(false);
+            takeQuizBtn.setEnabled(false);
+            takeQuizBtn.setText("No QUIZ");
+            takeQuizBtn.setVisible(true);
+            takeQuizBtn.setBackground(Color.red);
+            takeQuizBtn.setForeground(Color.black);
             attemptsHistoryBtn.setVisible(false);
         }
     }

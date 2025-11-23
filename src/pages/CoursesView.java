@@ -175,6 +175,9 @@ public class CoursesView extends JPanel {
         idLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton viewLessonsBtn = new JButton("View Course Lessons");
+        for (ActionListener al : viewLessonsBtn.getActionListeners()) {
+            viewLessonsBtn.removeActionListener(al);
+        }
         List<Course> enrolledCourses = StudentService.getEnrolledCourses(id);
         for (Course c : enrolledCourses) {
             if (c.getId() == course.getId()) {
