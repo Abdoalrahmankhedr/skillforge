@@ -13,6 +13,7 @@ import java.util.List;
 
 public class AdminDashboard extends JPanel {
     private static int adminId;
+    private static String adminName;
     private static JLabel adminLabel;
     private static JPanel coursesPanel;
     private static JButton logoutButton;
@@ -27,22 +28,20 @@ public class AdminDashboard extends JPanel {
         initComponents();
     }
 
-    public static void setAdmin(int adminId, String adminName) {
-        loggedInAdminId = adminId;
-        loggedInAdminName = adminName;
+    public static void setAdmin(int id, String name) {
+        adminId = id;
+        adminName = name;
         if (adminLabel != null) {
-            adminLabel.setText("Admin: " + loggedInAdminName);
+            adminLabel.setText("Admin: " + adminName);
         }
     }
 
     private void initComponents() {
         setLayout(new BorderLayout());
 
-        // Top panel with header and info
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.WHITE);
 
-        // Header
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(204, 204, 204));
         JLabel titleLabel = new JLabel("Admin Dashboard");
@@ -83,7 +82,6 @@ public class AdminDashboard extends JPanel {
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        // Admin info & buttons
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(new Color(51, 153, 255));
 
@@ -115,7 +113,6 @@ public class AdminDashboard extends JPanel {
         infoPanel.add(viewApprovedBtn);
         infoPanel.add(viewRejectedBtn);
 
-        // Courses panel
         coursesPanel = new JPanel();
         coursesPanel.setBackground(new Color(204, 204, 204));
         coursesPanel.setLayout(new BorderLayout());
@@ -126,7 +123,6 @@ public class AdminDashboard extends JPanel {
         add(topPanel, BorderLayout.NORTH);
         add(coursesPanel, BorderLayout.CENTER);
 
-        // Button actions
         logoutButton.addActionListener(e -> {
             MainWindow.goTo("login");
         });
@@ -147,7 +143,7 @@ public class AdminDashboard extends JPanel {
             }
         });
 
-        showPendingCourses(); // initial view
+        showPendingCourses();
     }
 
     private static void showPendingCourses() {
@@ -254,7 +250,8 @@ public class AdminDashboard extends JPanel {
         User admin = AdminService.getAdmin(id);
 
         if (admin != null) {
-            adminLabel.setText("Admin: " + admin.getName());
+            adminName = admin.getName();
+            adminLabel.setText("Admin: " + adminName);
         }
     }
 }

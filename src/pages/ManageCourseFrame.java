@@ -150,27 +150,34 @@ public class ManageCourseFrame extends JFrame {
             lessonItemPanel.setLayout(new BorderLayout(10, 0));
             lessonItemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
             lessonItemPanel.setBackground(Color.WHITE);
-            lessonItemPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+            lessonItemPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
             LessonCard card = new LessonCard();
             card.setData(false, lesson.getTitle(), lesson.getContent(), false, e -> {});
 
             JPanel buttonPanel = new JPanel();
-            buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
             buttonPanel.setOpaque(false);
+            buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-            JButton editBtn = new JButton("Edit");
+            // Edit Lesson Button
+            JButton editBtn = new JButton("Edit Lesson");
             editBtn.setBackground(new Color(255, 153, 0));
             editBtn.setForeground(Color.WHITE);
             editBtn.setFont(new Font("Arial", Font.BOLD, 14));
             editBtn.setFocusPainted(false);
+            editBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            editBtn.setMaximumSize(new Dimension(150, 30));
             editBtn.addActionListener(e -> EditLessonDialog.showDialog(currentCourse, lesson, instance));
 
-            JButton deleteBtn = new JButton("Delete");
+            // Delete Lesson Button
+            JButton deleteBtn = new JButton("Delete Lesson");
             deleteBtn.setBackground(new Color(204, 0, 0));
             deleteBtn.setForeground(Color.WHITE);
             deleteBtn.setFont(new Font("Arial", Font.BOLD, 14));
             deleteBtn.setFocusPainted(false);
+            deleteBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            deleteBtn.setMaximumSize(new Dimension(150, 30));
             deleteBtn.addActionListener(e -> {
                 int result = JOptionPane.showConfirmDialog(instance,
                         "Are you sure you want to delete this lesson?",
@@ -185,7 +192,42 @@ public class ManageCourseFrame extends JFrame {
                 }
             });
 
+            // Add/Edit Quiz Button
+            JButton quizBtn = new JButton(lesson.getQuiz() == null ? "Add Quiz" : "Edit Quiz");
+            quizBtn.setBackground(lesson.getQuiz() == null ? new Color(0, 153, 51) : new Color(0, 102, 204));
+            quizBtn.setForeground(Color.WHITE);
+            quizBtn.setFont(new Font("Arial", Font.BOLD, 14));
+            quizBtn.setFocusPainted(false);
+            quizBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            quizBtn.setMaximumSize(new Dimension(150, 30));
+            quizBtn.addActionListener(e -> {
+                if (lesson.getQuiz() == null) {
+                    // Add new quiz
+                    AddQuizDialog.showDialog(lesson, currentCourse, currentInstructorId, instance);
+                } else {
+                    // Edit existing quiz
+                    EditQuizDialog.showDialog(lesson, currentCourse, currentInstructorId, instance);
+                }
+            });
+
+            // Quiz Info Label (if quiz exists)
+            if (lesson.getQuiz() != null) {
+                JLabel quizInfoLabel = new JLabel(String.format(
+                        "<html><center>Quiz: %d questions<br>Pass: %.0f%%</center></html>",
+                        lesson.getQuiz().getQuestions().size(),
+                        lesson.getQuiz().getPassingScore()
+                ));
+                quizInfoLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+                quizInfoLabel.setForeground(new Color(0, 102, 204));
+                quizInfoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                buttonPanel.add(quizInfoLabel);
+                buttonPanel.add(Box.createVerticalStrut(5));
+            }
+
             buttonPanel.add(editBtn);
+            buttonPanel.add(Box.createVerticalStrut(5));
+            buttonPanel.add(quizBtn);
+            buttonPanel.add(Box.createVerticalStrut(5));
             buttonPanel.add(deleteBtn);
 
             lessonItemPanel.add(card, BorderLayout.CENTER);

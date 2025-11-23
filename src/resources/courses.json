@@ -521,39 +521,6 @@
   "pending" : true,
   "title" : "Mobile App Development"
 }, {
-  "approved" : false,
-  "approvedBy" : null,
-  "enrolledStudents" : [ 5 ],
-  "id" : 7,
-  "instructorId" : 4,
-  "lessons" : [ {
-    "content" : "l;fja;df",
-    "id" : 14,
-    "quiz" : null,
-    "studentProgress" : {
-      "5" : {
-        "attempts" : [ ],
-        "lessonComplete" : false,
-        "userId" : 5
-      }
-    },
-    "title" : "lesson1"
-  }, {
-    "content" : "dgsfg",
-    "id" : 15,
-    "quiz" : null,
-    "studentProgress" : {
-      "5" : {
-        "attempts" : [ ],
-        "lessonComplete" : false,
-        "userId" : 5
-      }
-    },
-    "title" : "lesson2"
-  } ],
-  "pending" : true,
-  "title" : "prog"
-}, {
   "approved" : true,
   "approvedBy" : 3,
   "enrolledStudents" : [ 1, 5 ],
@@ -725,4 +692,114 @@
   } ],
   "pending" : false,
   "title" : "Advanced Mathematics"
+}, {
+  "approved" : false,
+  "approvedBy" : null,
+  "enrolledStudents" : [ 5 ],
+  "id" : 7,
+  "instructorId" : 4,
+  "lessons" : [ {
+    "content" : "l;fja;df",
+    "id" : 14,
+    "quiz" : {
+      "id" : 9,
+      "passingScore" : 75.0,
+      "questions" : [ {
+        "choices" : [ {
+          "correct" : false,
+          "text" : "Liverpool"
+        }, {
+          "correct" : true,
+          "text" : "Zamalek"
+        }, {
+          "correct" : false,
+          "text" : "Bayern Munich"
+        }, {
+          "correct" : false,
+          "text" : "Real Madrid"
+        } ],
+        "header" : "Which football club does Abdo support?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Grilled Chicken"
+        }, {
+          "correct" : false,
+          "text" : "Grilled Fish"
+        }, {
+          "correct" : false,
+          "text" : "Koshary"
+        }, {
+          "correct" : false,
+          "text" : "Molokhia"
+        } ],
+        "header" : "What is Abdo's favorite dish"
+      } ],
+      "retries" : 3
+    },
+    "studentProgress" : {
+      "5" : {
+        "attempts" : [ {
+          "correctQuestions" : 1,
+          "finishTime" : "2025-11-23T18:32:17.2047075",
+          "passed" : false,
+          "questionAnswers" : {
+            "0" : 1,
+            "1" : 2
+          },
+          "quizId" : 9,
+          "score" : 50.0,
+          "startTime" : "2025-11-23T18:32:02.9845366",
+          "status" : "finished",
+          "userId" : 5,
+          "wrongQuestions" : 1
+        }, {
+          "correctQuestions" : 0,
+          "finishTime" : "2025-11-23T18:32:55.9808412",
+          "passed" : false,
+          "questionAnswers" : {
+            "0" : 0,
+            "1" : 2
+          },
+          "quizId" : 9,
+          "score" : 0.0,
+          "startTime" : "2025-11-23T18:32:48.7736041",
+          "status" : "finished",
+          "userId" : 5,
+          "wrongQuestions" : 2
+        }, {
+          "correctQuestions" : 2,
+          "finishTime" : "2025-11-23T18:33:10.8136471",
+          "passed" : true,
+          "questionAnswers" : {
+            "0" : 1,
+            "1" : 0
+          },
+          "quizId" : 9,
+          "score" : 100.0,
+          "startTime" : "2025-11-23T18:33:04.3553791",
+          "status" : "finished",
+          "userId" : 5,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : true,
+        "userId" : 5
+      }
+    },
+    "title" : "lesson1"
+  }, {
+    "content" : "dgsfg",
+    "id" : 15,
+    "quiz" : null,
+    "studentProgress" : {
+      "5" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 5
+      }
+    },
+    "title" : "lesson2"
+  } ],
+  "pending" : true,
+  "title" : "prog"
 } ]
