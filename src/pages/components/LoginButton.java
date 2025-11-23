@@ -2,6 +2,7 @@ package pages.components;
 
 import databases.UserDatabase;
 import models.User;
+import pages.AdminDashboard;
 import pages.InstructorDashboard;
 import pages.StudentDashBoard;
 import windows.MainWindow;
@@ -89,6 +90,9 @@ public class LoginButton extends JButton {
                 } else if (user.getRole().equalsIgnoreCase("Student")) {
                     StudentDashBoard.start(user.getId());
                     MainWindow.goTo("StudentDashBoard");
+                } else if (user.getRole().equalsIgnoreCase("Admin")) {
+                    AdminDashboard.start(user.getId());
+                    MainWindow.goTo("admin");
                 } else {
                     JOptionPane.showMessageDialog(this,
                             "Unknown user role",

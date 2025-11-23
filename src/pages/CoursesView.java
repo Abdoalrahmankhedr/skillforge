@@ -242,6 +242,6 @@ public class CoursesView extends JPanel {
         Backbtn.addActionListener(e -> {
             StudentDashBoard.start(id);
             MainWindow.goTo("StudentDashBoard");});
-        showCards(db.getRecords(), id);
+        showCards(db.getApprovedCourses(), id);
     }
 }
