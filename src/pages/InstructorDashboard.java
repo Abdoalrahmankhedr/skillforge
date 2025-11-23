@@ -4,6 +4,9 @@ import models.Course;
 import models.User;
 import services.InstructorService;
 import windows.MainWindow;
+import pages.components.ChartFrame;
+import services.AnalyticsService;
+import java.util.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +32,9 @@ public class InstructorDashboard extends JFrame {
 
     // Flag to track if listeners are already added
     private static boolean listenersAdded = false;
+    private JPanel insightsPanel;
+    private JButton toggleInsightsBtn;
+    private boolean insightsVisible = false;
 
     public InstructorDashboard() {
         initComponents();
@@ -53,7 +59,7 @@ public class InstructorDashboard extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Instructor Dashboard - SkillForge");
-
+        setSize(1400, 800);
         jPanel1.setBackground(new Color(255, 255, 255));
         jPanel2.setBackground(new Color(204, 204, 204));
 
@@ -72,6 +78,20 @@ public class InstructorDashboard extends JFrame {
         createCourseBtn.setForeground(Color.WHITE);
         createCourseBtn.setText("Create New Course");
 
+        // Insights Panel
+        insightsPanel = new JPanel();
+        insightsPanel.setBackground(Color.WHITE);
+        insightsPanel.setLayout(new BoxLayout(insightsPanel, BoxLayout.Y_AXIS));
+        insightsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        insightsPanel.setVisible(false);
+
+        // Toggle Insights Button
+        toggleInsightsBtn = new JButton("Show Insights");
+        toggleInsightsBtn.setBackground(new Color(102, 102, 255));
+        toggleInsightsBtn.setForeground(Color.WHITE);
+        toggleInsightsBtn.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        toggleInsightsBtn.setFocusPainted(false);
+
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -79,6 +99,8 @@ public class InstructorDashboard extends JFrame {
                         .addGroup(GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(logoutBtn)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(toggleInsightsBtn)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(titleLabel)
                                 .addGap(200, 200, 200)
@@ -92,6 +114,7 @@ public class InstructorDashboard extends JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(titleLabel)
                                         .addComponent(logoutBtn)
+                                        .addComponent(toggleInsightsBtn)
                                         .addComponent(createCourseBtn))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -155,6 +178,7 @@ public class InstructorDashboard extends JFrame {
                 jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(insightsPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(coursesPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(466, 466, 466)
@@ -170,21 +194,19 @@ public class InstructorDashboard extends JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(insightsPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(coursesPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        // Wrap jPanel1 in a JScrollPane
+        JScrollPane mainScrollPane = new JScrollPane(jPanel1);
+        mainScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        mainScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        mainScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        mainScrollPane.setBorder(null);
+
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(mainScrollPane, BorderLayout.CENTER);
 
         pack();
     }
@@ -311,6 +333,19 @@ public class InstructorDashboard extends JFrame {
                 CreateCourseDialog.showDialog(instructorId, instance);
             });
 
+            instance.toggleInsightsBtn.addActionListener(e -> {
+                instance.insightsVisible = !instance.insightsVisible;
+                instance.insightsPanel.setVisible(instance.insightsVisible);
+                instance.toggleInsightsBtn.setText(instance.insightsVisible ? "Hide Insights" : "Show Insights");
+
+                if (instance.insightsVisible) {
+                    loadInsights(currentInstructorId);
+                }
+
+                instance.revalidate();
+                instance.repaint();
+            });
+
             listenersAdded = true;
         }
 
@@ -319,5 +354,56 @@ public class InstructorDashboard extends JFrame {
         instance.coursesPanel.add(scrollPane, BorderLayout.CENTER);
         instance.coursesPanel.revalidate();
         instance.coursesPanel.repaint();
+    }
+
+    private static void loadInsights(int instructorId) {
+        instance.insightsPanel.removeAll();
+
+        // Title
+        JLabel insightsTitle = new JLabel("📊 Analytics & Insights");
+        insightsTitle.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        insightsTitle.setForeground(new Color(70, 130, 180));
+        insightsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        instance.insightsPanel.add(insightsTitle);
+        instance.insightsPanel.add(Box.createVerticalStrut(20));
+
+        // Charts container
+        JPanel chartsContainer = new JPanel();
+        chartsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        chartsContainer.setBackground(Color.WHITE);
+
+        // 1. Student Performance Chart (Bar Chart)
+        ChartFrame studentPerformanceChart = new ChartFrame("Student Performance", ChartFrame.ChartType.BAR);
+        Map<String, Double> studentPerf = AnalyticsService.getStudentPerformance(instructorId);
+        if (!studentPerf.isEmpty()) {
+            studentPerformanceChart.renderBarChart(
+                    new ArrayList<>(studentPerf.keySet()),
+                    new ArrayList<>(studentPerf.values())
+            );
+        }
+        chartsContainer.add(studentPerformanceChart);
+
+        // 2. Quiz Averages Chart (Line Chart)
+        ChartFrame quizAveragesChart = new ChartFrame("Quiz Averages per Lesson", ChartFrame.ChartType.LINE);
+        Map<String, Double> quizAvgs = AnalyticsService.getQuizAveragesByLesson(instructorId);
+        if (!quizAvgs.isEmpty()) {
+            quizAveragesChart.renderLineChart(
+                    new ArrayList<>(quizAvgs.keySet()),
+                    new ArrayList<>(quizAvgs.values())
+            );
+        }
+        chartsContainer.add(quizAveragesChart);
+
+        // 3. Course Completion Rates
+        ChartFrame completionChart = new ChartFrame("Course Completion Rates", ChartFrame.ChartType.BAR);
+        Map<String, Double> completionRates = AnalyticsService.getCourseCompletionRates(instructorId);
+        if (!completionRates.isEmpty()) {
+            completionChart.renderCompletionChart(completionRates);
+        }
+        chartsContainer.add(completionChart);
+
+        instance.insightsPanel.add(chartsContainer);
+        instance.insightsPanel.revalidate();
+        instance.insightsPanel.repaint();
     }
 }

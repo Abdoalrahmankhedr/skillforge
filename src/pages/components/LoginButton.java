@@ -88,7 +88,7 @@ public class LoginButton extends JButton {
                     MainWindow.goToFrame("InstructorDashboard");
                 } else if (user.getRole().equalsIgnoreCase("Student")) {
                     StudentDashBoard.start(user.getId());
-                    MainWindow.goToFrame("StudentDashBoard");
+                    MainWindow.goTo("StudentDashBoard");
                 } else {
                     JOptionPane.showMessageDialog(this,
                             "Unknown user role",

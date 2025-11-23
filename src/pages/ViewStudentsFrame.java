@@ -103,7 +103,7 @@ public class ViewStudentsFrame extends JFrame {
                 int completedLessons = 0;
 
                 for (Lesson lesson : course.getLessons()) {
-                    Boolean completed = lesson.getStudentProgress().get(studentId);
+                    Boolean completed = lesson.getStudentProgress().get(studentId).isLessonComplete();
                     if (completed != null && completed) {
                         completedLessons++;
                     }

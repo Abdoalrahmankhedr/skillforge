@@ -2,6 +2,7 @@ package pages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
@@ -13,17 +14,22 @@ import services.InstructorService;
 import services.StudentService;
 import windows.MainWindow;
 
-public class CoursesView extends javax.swing.JFrame {
+public class CoursesView extends JPanel {
     private static final CourseDatabase db = CourseDatabase.getInstance();
     private static CoursesView instance;
-    private static int currentstudent=0;
-    private JScrollPane scrollPane;
+    private static int currentstudent = 0;
+    private static JScrollPane scrollPane;
+
+    private static JButton Backbtn;
+    private static JPanel coursepanel;
+    private JLabel jLabel1;
+    private JPanel jPanel1;
+    private JPanel jPanel2;
+    private JTextField searchfeild;
 
     public CoursesView() {
         initComponents();
         setupSearchField();
-        setResizable(false);
-        setLocationRelativeTo(null);
     }
 
     private void setupSearchField() {
@@ -39,7 +45,6 @@ public class CoursesView extends javax.swing.JFrame {
                     searchfeild.setForeground(Color.BLACK);
                 }
             }
-
             @Override
             public void focusLost(FocusEvent e) {
                 if (searchfeild.getText().isEmpty()) {
@@ -55,27 +60,24 @@ public class CoursesView extends javax.swing.JFrame {
     private void filterCourses() {
         String text = searchfeild.getText().trim();
         List<Course> filteredCourses = new ArrayList<>();
-        for (Course c : db.getRecords()) {
+        for (Course c : db.getApprovedCourses()) {
             if (text.equals("") || text.equals("Search Course By name...") ||
                     c.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filteredCourses.add(c);
             }
         }
-        showCards(filteredCourses,currentstudent);
+        showCards(filteredCourses, currentstudent);
     }
 
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        Backbtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        searchfeild = new javax.swing.JTextField();
-        coursepanel = new javax.swing.JPanel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new JPanel();
+        jPanel2 = new JPanel();
+        Backbtn = new JButton();
+        jLabel1 = new JLabel();
+        searchfeild = new JTextField();
+        coursepanel = new JPanel();
 
         jPanel1.setBackground(Color.WHITE);
-
         jPanel2.setBackground(new Color(204, 204, 204));
 
         Backbtn.setBackground(new Color(0, 0, 255));
@@ -87,7 +89,7 @@ public class CoursesView extends javax.swing.JFrame {
         jLabel1.setForeground(Color.BLACK);
         jLabel1.setText("CourseView");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
                 jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -122,8 +124,8 @@ public class CoursesView extends javax.swing.JFrame {
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         coursepanel.add(scrollPane, BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
+        GroupLayout jPanel1Layout = new GroupLayout(this);
+        setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -142,21 +144,6 @@ public class CoursesView extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(coursepanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        pack();
     }
 
     private static JPanel createCourseCard(Course course, int id) {
@@ -204,7 +191,8 @@ public class CoursesView extends javax.swing.JFrame {
         viewLessonsBtn.setFocusPainted(false);
         viewLessonsBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         viewLessonsBtn.addActionListener(e -> {
-            CourseLessons.start(course, id);
+            CourseLessons.start(course, id); // set labels and back action
+            MainWindow.goTo("CourseLessons"); // switch view
         });
 
         card.add(Box.createVerticalStrut(10));
@@ -222,7 +210,7 @@ public class CoursesView extends javax.swing.JFrame {
         return card;
     }
 
-    public void showCards(List<Course> courses, int id) {
+    public static void showCards(List<Course> courses, int id) {
         int columns = 3;
         int rows = (int) Math.ceil(courses.size() / (double) columns);
         if (rows == 0) rows = 1;
@@ -245,22 +233,12 @@ public class CoursesView extends javax.swing.JFrame {
 
     public static void start(int id) {
         currentstudent = id;
-        if (instance == null) {
-            instance = new CoursesView();
-            MainWindow.addFrame("CoursesView", instance);
-            instance.Backbtn.addActionListener(e -> {
-                StudentDashBoard.start(id);
-                MainWindow.goToFrame("StudentDashBoard");
-            });
+        for (ActionListener al : Backbtn.getActionListeners()) {
+            Backbtn.removeActionListener(al);
         }
-        instance.showCards(db.getRecords(), id);
-        MainWindow.goToFrame("CoursesView");
+        Backbtn.addActionListener(e -> {
+            StudentDashBoard.start(id);
+            MainWindow.goTo("StudentDashBoard");});
+        showCards(db.getRecords(), id);
     }
-
-    private javax.swing.JButton Backbtn;
-    private javax.swing.JPanel coursepanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField searchfeild;
 }

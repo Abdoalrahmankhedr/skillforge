@@ -2,10 +2,7 @@ package services;
 
 import databases.CourseDatabase;
 import databases.UserDatabase;
-import models.Course;
-import models.Lesson;
-import models.Student;
-import models.User;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +30,7 @@ public class StudentService {
 
         // Checks for all lessons within all enrolled courses
         // only returns the lessons where the student has either started or completed
-        Map<Integer, Boolean> progress = new HashMap<>();
+        Map<Integer, Progress> progress = new HashMap<>();
         for (Lesson l : getEnrolledLessons(studentId)) {
             if (l.getStudentProgress().getOrDefault(studentId, null) != null) {
                 progress.put(l.getId(), l.getStudentProgress().get(studentId));
@@ -42,6 +39,7 @@ public class StudentService {
         student.setLessonProgress(progress);
 
         student.setId(user.getId());
+        student.setCertificates(user.getCertificates());
         student.setEmail(user.getEmail());
         student.setPassword(user.getPassword());
         student.setName(user.getName());
@@ -68,6 +66,30 @@ public class StudentService {
         return lessons;
     }
 
+    public static List<Lesson> getEnrolledLessonsByCourse(int studentId, int courseId) {
+        List<Lesson> lessons = new ArrayList<>();
+
+        for (Course c : getEnrolledCourses(studentId)) {
+            if (c.getId() == courseId) {
+                lessons.addAll(c.getLessons());
+            }
+        }
+
+        return lessons;
+    }
+
+    public static boolean isEnrolled(int studentId, int courseId) {
+        Course course = courseDb.getCourseById(courseId);
+
+        if (course != null) {
+            for (Integer id : course.getEnrolledStudents()) {
+                if (id == studentId) return true;
+            }
+        }
+
+        return false;
+    }
+
     public static void enroll(int studentId, int courseId) {
         courseDb.enroll(studentId, courseId);
     }
@@ -78,5 +100,10 @@ public class StudentService {
 
     public static void completeLesson(int studentId, int lessonId) {
         courseDb.completeLesson(studentId, lessonId);
+    }
+
+    public static void takeAttempt(int studentId, int quizId, int correctQuestions) {
+        /* The student has taken the quiz, and has achieved a correct {correctQuestions} number of questions */
+        courseDb.addQuizAttempt(studentId, quizId, correctQuestions);
     }
 }
