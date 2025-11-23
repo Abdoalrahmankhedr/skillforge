@@ -177,6 +177,9 @@ public class StudentDashBoard extends JPanel {
         idLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton viewLessonsBtn = new JButton("View Course Lessons");
+        for (ActionListener al : viewLessonsBtn.getActionListeners()) {
+            viewLessonsBtn.removeActionListener(al);
+        }
         viewLessonsBtn.setBackground(new Color(0, 102, 204));
         viewLessonsBtn.setFont(new Font("Arial", Font.BOLD, 20));
         viewLessonsBtn.setForeground(Color.WHITE);

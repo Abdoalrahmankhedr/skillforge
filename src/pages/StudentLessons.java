@@ -248,7 +248,6 @@ public class StudentLessons extends JPanel {
                     StudentService.takeLesson(ID, l.getId());
                 }
             }
-
             for (Lesson l : new ArrayList<>(currentlessons)) {
                 Progress lessonProgress = l.getStudentProgress().get(ID);
 

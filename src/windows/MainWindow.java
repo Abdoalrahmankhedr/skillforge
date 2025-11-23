@@ -48,7 +48,7 @@ public class MainWindow {
     /* Window Name */
     private static String title;
     /* Window Dimensions */
-    private static int[] dimensions = { 1250, 700 };
+    private static int[] dimensions = { 1300, 700 };
 
     /* Layout */
     private static final CardLayout cardLayout = new CardLayout();
