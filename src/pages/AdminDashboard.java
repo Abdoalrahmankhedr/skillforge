@@ -28,14 +28,6 @@ public class AdminDashboard extends JPanel {
         initComponents();
     }
 
-    public static void setAdmin(int id, String name) {
-        adminId = id;
-        adminName = name;
-        if (adminLabel != null) {
-            adminLabel.setText("Admin: " + adminName);
-        }
-    }
-
     private void initComponents() {
         setLayout(new BorderLayout());
 

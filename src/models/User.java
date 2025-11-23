@@ -11,15 +11,12 @@ public class User implements Model {
     private String email;
     private String name;
     private String role;
-    private List<Certificate> certificates;
+    private List<Certificate> certificates = new ArrayList<>();
 
     /* This constructor is necessary for JSON parsing */
     public User() {}
 
     public void addCertificate(Certificate certificate) {
-        if (this.certificates == null) {
-            this.certificates = new ArrayList<>();
-        }
         this.certificates.add(certificate);
     }
 

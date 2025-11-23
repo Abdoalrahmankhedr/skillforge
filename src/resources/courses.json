@@ -96,19 +96,8 @@
     },
     "studentProgress" : {
       "1" : {
-        "attempts" : [ {
-          "correctQuestions" : 4,
-          "finishTime" : null,
-          "passed" : true,
-          "questionAnswers" : { },
-          "quizId" : 1,
-          "score" : 80.0,
-          "startTime" : null,
-          "status" : null,
-          "userId" : 1,
-          "wrongQuestions" : 0
-        } ],
-        "lessonComplete" : true,
+        "attempts" : [ ],
+        "lessonComplete" : false,
         "userId" : 1
       }
     },
@@ -196,18 +185,7 @@
     },
     "studentProgress" : {
       "1" : {
-        "attempts" : [ {
-          "correctQuestions" : 3,
-          "finishTime" : null,
-          "passed" : false,
-          "questionAnswers" : { },
-          "quizId" : 2,
-          "score" : 60.0,
-          "startTime" : null,
-          "status" : null,
-          "userId" : 1,
-          "wrongQuestions" : 0
-        } ],
+        "attempts" : [ ],
         "lessonComplete" : false,
         "userId" : 1
       }
@@ -293,19 +271,8 @@
     },
     "studentProgress" : {
       "1" : {
-        "attempts" : [ {
-          "correctQuestions" : 4,
-          "finishTime" : null,
-          "passed" : true,
-          "questionAnswers" : { },
-          "quizId" : 3,
-          "score" : 100.0,
-          "startTime" : null,
-          "status" : null,
-          "userId" : 1,
-          "wrongQuestions" : 0
-        } ],
-        "lessonComplete" : true,
+        "attempts" : [ ],
+        "lessonComplete" : false,
         "userId" : 1
       }
     },
@@ -441,30 +408,8 @@
     },
     "studentProgress" : {
       "1" : {
-        "attempts" : [ {
-          "correctQuestions" : 7,
-          "finishTime" : null,
-          "passed" : true,
-          "questionAnswers" : { },
-          "quizId" : 4,
-          "score" : 87.5,
-          "startTime" : null,
-          "status" : null,
-          "userId" : 1,
-          "wrongQuestions" : 0
-        }, {
-          "correctQuestions" : 6,
-          "finishTime" : null,
-          "passed" : true,
-          "questionAnswers" : { },
-          "quizId" : 4,
-          "score" : 75.0,
-          "startTime" : null,
-          "status" : null,
-          "userId" : 1,
-          "wrongQuestions" : 0
-        } ],
-        "lessonComplete" : true,
+        "attempts" : [ ],
+        "lessonComplete" : false,
         "userId" : 1
       }
     },
@@ -567,8 +512,22 @@
     },
     "studentProgress" : {
       "1" : {
-        "attempts" : [ ],
-        "lessonComplete" : false,
+        "attempts" : [ {
+          "correctQuestions" : 2,
+          "finishTime" : "2025-11-23T18:29:11.484621",
+          "passed" : true,
+          "questionAnswers" : {
+            "0" : 0,
+            "1" : 0
+          },
+          "quizId" : 5,
+          "score" : 100.0,
+          "startTime" : "2025-11-23T18:29:05.034621",
+          "status" : "finished",
+          "userId" : 1,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : true,
         "userId" : 1
       },
       "5" : {
@@ -667,19 +626,8 @@
     },
     "studentProgress" : {
       "1" : {
-        "attempts" : [ {
-          "correctQuestions" : 17,
-          "finishTime" : null,
-          "passed" : true,
-          "questionAnswers" : { },
-          "quizId" : 8,
-          "score" : 85.0,
-          "startTime" : null,
-          "status" : null,
-          "userId" : 1,
-          "wrongQuestions" : 0
-        } ],
-        "lessonComplete" : true,
+        "attempts" : [ ],
+        "lessonComplete" : false,
         "userId" : 1
       },
       "5" : {
