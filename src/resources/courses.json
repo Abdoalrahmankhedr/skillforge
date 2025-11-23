@@ -14,145 +14,205 @@
   "id" : 2,
   "instructorId" : 2,
   "lessons" : [ {
-    "id": 1,
-    "title": "Getting Started with Programming",
-    "content": "In this lesson, we'll explore what programming is and why it's important in today's digital world. We'll cover basic concepts and set up our development environment.",
-    "studentProgress": {
-      "1": {
-        "userId": 1,
-        "lessonComplete": true,
-        "attempts": [
-          {
-            "quizId": 1,
-            "userId": 1,
-            "score": 80.0,
-            "correctQuestions": 4,
-            "passed": true
-          }
-        ]
+    "content" : "In this lesson, we'll explore what programming is and why it's important in today's digital world. We'll cover basic concepts and set up our development environment.",
+    "id" : 1,
+    "quiz" : {
+      "id" : 1,
+      "passingScore" : 75.0,
+      "questions" : [ {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Writing instructions for computers"
+        }, {
+          "correct" : false,
+          "text" : "Playing video games"
+        }, {
+          "correct" : false,
+          "text" : "Reading books"
+        }, {
+          "correct" : false,
+          "text" : "Drawing pictures"
+        } ],
+        "header" : "What is programming?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Java"
+        }, {
+          "correct" : false,
+          "text" : "Microsoft Word"
+        }, {
+          "correct" : false,
+          "text" : "Adobe Photoshop"
+        } ],
+        "header" : "Which of these are programming languages?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "A container for storing data"
+        }, {
+          "correct" : false,
+          "text" : "A type of computer hardware"
+        }, {
+          "correct" : false,
+          "text" : "A programming language"
+        }, {
+          "correct" : false,
+          "text" : "A mathematical constant"
+        } ],
+        "header" : "What is a variable?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Integrated Development Environment"
+        }, {
+          "correct" : false,
+          "text" : "International Data Exchange"
+        }, {
+          "correct" : false,
+          "text" : "Internal Disk Error"
+        }, {
+          "correct" : false,
+          "text" : "Internet Download Engine"
+        } ],
+        "header" : "What does IDE stand for?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "They are step-by-step procedures"
+        }, {
+          "correct" : false,
+          "text" : "They are only used in mathematics"
+        }, {
+          "correct" : false,
+          "text" : "They are programming languages"
+        }, {
+          "correct" : false,
+          "text" : "They are computer hardware components"
+        } ],
+        "header" : "Which statement about algorithms is true?"
+      } ],
+      "retries" : 3
+    },
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ {
+          "correctQuestions" : 4,
+          "finishTime" : null,
+          "passed" : true,
+          "questionAnswers" : { },
+          "quizId" : 1,
+          "score" : 80.0,
+          "startTime" : null,
+          "status" : null,
+          "userId" : 1,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : true,
+        "userId" : 1
       }
     },
-    "quiz": {
-      "id": 1,
-      "retries": 3,
-      "passingScore": 75.0,
-      "questions": [
-        {
-          "header": "What is programming?",
-          "choices": [
-            {"text": "Writing instructions for computers", "correct": true},
-            {"text": "Playing video games", "correct": false},
-            {"text": "Reading books", "correct": false},
-            {"text": "Drawing pictures", "correct": false}
-          ]
-        },
-        {
-          "header": "Which of these are programming languages?",
-          "choices": [
-            {"text": "Java", "correct": true},
-            {"text": "Microsoft Word", "correct": false},
-            {"text": "Adobe Photoshop", "correct": false}
-          ]
-        },
-        {
-          "header": "What is a variable?",
-          "choices": [
-            {"text": "A container for storing data", "correct": true},
-            {"text": "A type of computer hardware", "correct": false},
-            {"text": "A programming language", "correct": false},
-            {"text": "A mathematical constant", "correct": false}
-          ]
-        },
-        {
-          "header": "What does IDE stand for?",
-          "choices": [
-            {"text": "Integrated Development Environment", "correct": true},
-            {"text": "International Data Exchange", "correct": false},
-            {"text": "Internal Disk Error", "correct": false},
-            {"text": "Internet Download Engine", "correct": false}
-          ]
-        },
-        {
-          "header": "Which statement about algorithms is true?",
-          "choices": [
-            {"text": "They are step-by-step procedures", "correct": true},
-            {"text": "They are only used in mathematics", "correct": false},
-            {"text": "They are programming languages", "correct": false},
-            {"text": "They are computer hardware components", "correct": false}
-          ]
-        }
-      ]
-    }
+    "title" : "Getting Started with Programming"
   }, {
-    "id": 2,
-    "title": "Variables and Data Types",
-    "content": "Learn about variables, constants, and different data types available in programming languages. We'll practice declaring and using variables in practical examples.",
-    "studentProgress": {
-      "1": {
-        "userId": 1,
-        "lessonComplete": false,
-        "attempts": [
-          {
-            "quizId": 2,
-            "userId": 1,
-            "score": 60.0,
-            "correctQuestions": 3,
-            "passed": false
-          }
-        ]
+    "content" : "Learn about variables, constants, and different data types available in programming languages. We'll practice declaring and using variables in practical examples.",
+    "id" : 2,
+    "quiz" : {
+      "id" : 2,
+      "passingScore" : 75.0,
+      "questions" : [ {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "int"
+        }, {
+          "correct" : false,
+          "text" : "color"
+        }, {
+          "correct" : true,
+          "text" : "float"
+        } ],
+        "header" : "Which of these are valid data types?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "To store values that don't change"
+        }, {
+          "correct" : false,
+          "text" : "To make code run faster"
+        }, {
+          "correct" : false,
+          "text" : "To create variables"
+        }, {
+          "correct" : false,
+          "text" : "To display output"
+        } ],
+        "header" : "What is the purpose of a constant?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "="
+        }, {
+          "correct" : false,
+          "text" : "=="
+        }, {
+          "correct" : false,
+          "text" : ":="
+        }, {
+          "correct" : false,
+          "text" : "->"
+        } ],
+        "header" : "Which symbol is commonly used for assignment?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Preventing type-related errors"
+        }, {
+          "correct" : false,
+          "text" : "Making variables secure"
+        }, {
+          "correct" : false,
+          "text" : "Encrypting data types"
+        }, {
+          "correct" : false,
+          "text" : "Backing up variables"
+        } ],
+        "header" : "What is type safety?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "boolean"
+        }, {
+          "correct" : false,
+          "text" : "int"
+        }, {
+          "correct" : false,
+          "text" : "String"
+        }, {
+          "correct" : false,
+          "text" : "float"
+        } ],
+        "header" : "Which data type would you use for true/false values?"
+      } ],
+      "retries" : 2
+    },
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ {
+          "correctQuestions" : 3,
+          "finishTime" : null,
+          "passed" : false,
+          "questionAnswers" : { },
+          "quizId" : 2,
+          "score" : 60.0,
+          "startTime" : null,
+          "status" : null,
+          "userId" : 1,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : false,
+        "userId" : 1
       }
     },
-    "quiz": {
-      "id": 2,
-      "retries": 2,
-      "passingScore": 75.0,
-      "questions": [
-        {
-          "header": "Which of these are valid data types?",
-          "choices": [
-            {"text": "int", "correct": true},
-            {"text": "color", "correct": false},
-            {"text": "float", "correct": true}
-          ]
-        },
-        {
-          "header": "What is the purpose of a constant?",
-          "choices": [
-            {"text": "To store values that don't change", "correct": true},
-            {"text": "To make code run faster", "correct": false},
-            {"text": "To create variables", "correct": false},
-            {"text": "To display output", "correct": false}
-          ]
-        },
-        {
-          "header": "Which symbol is commonly used for assignment?",
-          "choices": [
-            {"text": "=", "correct": true},
-            {"text": "==", "correct": false},
-            {"text": ":=", "correct": false},
-            {"text": "->", "correct": false}
-          ]
-        },
-        {
-          "header": "What is type safety?",
-          "choices": [
-            {"text": "Preventing type-related errors", "correct": true},
-            {"text": "Making variables secure", "correct": false},
-            {"text": "Encrypting data types", "correct": false},
-            {"text": "Backing up variables", "correct": false}
-          ]
-        },
-        {
-          "header": "Which data type would you use for true/false values?",
-          "choices": [
-            {"text": "boolean", "correct": true},
-            {"text": "int", "correct": false},
-            {"text": "String", "correct": false},
-            {"text": "float", "correct": false}
-          ]
-        }
-      ]
-    }
+    "title" : "Variables and Data Types"
   } ],
   "pending" : false,
   "title" : "Introduction to Programming"
@@ -162,319 +222,275 @@
   "enrolledStudents" : [ 1 ],
   "id" : 3,
   "instructorId" : 2,
-  "lessons" : [
-    {
-      "id": 3,
-      "title": "HTML Basics",
-      "content": "Learn the foundation of web development with HTML. We'll cover tags, elements, attributes, and how to structure a basic web page.",
-      "studentProgress": {
-        "1": {
-          "userId": 1,
-          "lessonComplete": true,
-          "attempts": [
-            {
-              "quizId": 3,
-              "userId": 1,
-              "score": 100.0,
-              "correctQuestions": 4,
-              "passed": true
-            }
-          ]
-        }
-      },
-      "quiz": {
-        "id": 3,
-        "retries": 3,
-        "passingScore": 75.0,
-        "questions": [
-          {
-            "header": "What does HTML stand for?",
-            "choices": [
-              {"text": "HyperText Markup Language", "correct": true},
-              {"text": "HighTech Modern Language", "correct": false},
-              {"text": "HyperTransfer Markup Language", "correct": false},
-              {"text": "Home Tool Markup Language", "correct": false}
-            ]
-          },
-          {
-            "header": "Which tag is used for the main heading?",
-            "choices": [
-              {"text": "<h1>", "correct": true},
-              {"text": "<head>", "correct": false},
-              {"text": "<header>", "correct": false},
-              {"text": "<heading>", "correct": false}
-            ]
-          },
-          {
-            "header": "What is the correct structure for an HTML document?",
-            "choices": [
-              {"text": "html > head + body", "correct": true},
-              {"text": "body > head + html", "correct": false},
-              {"text": "head > body + html", "correct": false},
-              {"text": "html > body + head", "correct": false}
-            ]
-          },
-          {
-            "header": "Which attribute is used for image sources?",
-            "choices": [
-              {"text": "src", "correct": true},
-              {"text": "href", "correct": false},
-              {"text": "link", "correct": false},
-              {"text": "source", "correct": false}
-            ]
-          }
-        ]
+  "lessons" : [ {
+    "content" : "Learn the foundation of web development with HTML. We'll cover tags, elements, attributes, and how to structure a basic web page.",
+    "id" : 3,
+    "quiz" : {
+      "id" : 3,
+      "passingScore" : 75.0,
+      "questions" : [ {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "HyperText Markup Language"
+        }, {
+          "correct" : false,
+          "text" : "HighTech Modern Language"
+        }, {
+          "correct" : false,
+          "text" : "HyperTransfer Markup Language"
+        }, {
+          "correct" : false,
+          "text" : "Home Tool Markup Language"
+        } ],
+        "header" : "What does HTML stand for?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "<h1>"
+        }, {
+          "correct" : false,
+          "text" : "<head>"
+        }, {
+          "correct" : false,
+          "text" : "<header>"
+        }, {
+          "correct" : false,
+          "text" : "<heading>"
+        } ],
+        "header" : "Which tag is used for the main heading?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "html > head + body"
+        }, {
+          "correct" : false,
+          "text" : "body > head + html"
+        }, {
+          "correct" : false,
+          "text" : "head > body + html"
+        }, {
+          "correct" : false,
+          "text" : "html > body + head"
+        } ],
+        "header" : "What is the correct structure for an HTML document?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "src"
+        }, {
+          "correct" : false,
+          "text" : "href"
+        }, {
+          "correct" : false,
+          "text" : "link"
+        }, {
+          "correct" : false,
+          "text" : "source"
+        } ],
+        "header" : "Which attribute is used for image sources?"
+      } ],
+      "retries" : 3
+    },
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ {
+          "correctQuestions" : 4,
+          "finishTime" : null,
+          "passed" : true,
+          "questionAnswers" : { },
+          "quizId" : 3,
+          "score" : 100.0,
+          "startTime" : null,
+          "status" : null,
+          "userId" : 1,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : true,
+        "userId" : 1
       }
     },
-    {
-      "id": 4,
-      "title": "CSS Styling",
-      "content": "Discover how to make your web pages visually appealing with CSS. Topics include selectors, properties, layouts, and responsive design principles.",
-      "studentProgress": {
-        "1": {
-          "userId": 1,
-          "lessonComplete": true,
-          "attempts": [
-            {
-              "quizId": 4,
-              "userId": 1,
-              "score": 87.5,
-              "correctQuestions": 7,
-              "passed": true
-            },
-            {
-              "quizId": 4,
-              "userId": 1,
-              "score": 75.0,
-              "correctQuestions": 6,
-              "passed": true
-            }
-          ]
-        }
-      },
-      "quiz": {
-        "id": 4,
-        "retries": 3,
-        "passingScore": 75.0,
-        "questions": [
-          {
-            "header": "What does CSS stand for?",
-            "choices": [
-              {"text": "Cascading Style Sheets", "correct": true},
-              {"text": "Computer Style Sheets", "correct": false},
-              {"text": "Creative Style System", "correct": false},
-              {"text": "Colorful Style Sheets", "correct": false}
-            ]
-          },
-          {
-            "header": "Which selector targets an element by id?",
-            "choices": [
-              {"text": "#id", "correct": true},
-              {"text": ".id", "correct": false},
-              {"text": "*id", "correct": false},
-              {"text": "id", "correct": false}
-            ]
-          },
-          {
-            "header": "What is the box model composed of?",
-            "choices": [
-              {"text": "Content, padding, border, margin", "correct": true},
-              {"text": "Header, body, footer", "correct": false},
-              {"text": "Width, height, depth", "correct": false},
-              {"text": "Color, size, font", "correct": false}
-            ]
-          },
-          {
-            "header": "Which property changes text color?",
-            "choices": [
-              {"text": "color", "correct": true},
-              {"text": "text-color", "correct": false},
-              {"text": "font-color", "correct": false},
-              {"text": "text-style", "correct": false}
-            ]
-          },
-          {
-            "header": "What does 'display: flex' do?",
-            "choices": [
-              {"text": "Creates a flexible layout", "correct": true},
-              {"text": "Makes text flexible", "correct": false},
-              {"text": "Hides the element", "correct": false},
-              {"text": "Changes font size", "correct": false}
-            ]
-          },
-          {
-            "header": "Which unit is relative to font size?",
-            "choices": [
-              {"text": "em", "correct": true},
-              {"text": "px", "correct": false},
-              {"text": "cm", "correct": false},
-              {"text": "in", "correct": false}
-            ]
-          },
-          {
-            "header": "What is media queries used for?",
-            "choices": [
-              {"text": "Responsive design", "correct": true},
-              {"text": "Database queries", "correct": false},
-              {"text": "Image optimization", "correct": false},
-              {"text": "Form validation", "correct": false}
-            ]
-          },
-          {
-            "header": "Which property adds space between elements?",
-            "choices": [
-              {"text": "margin", "correct": true},
-              {"text": "padding", "correct": false},
-              {"text": "border", "correct": false},
-              {"text": "spacing", "correct": false}
-            ]
-          }
-        ]
+    "title" : "HTML Basics"
+  }, {
+    "content" : "Discover how to make your web pages visually appealing with CSS. Topics include selectors, properties, layouts, and responsive design principles.",
+    "id" : 4,
+    "quiz" : {
+      "id" : 4,
+      "passingScore" : 75.0,
+      "questions" : [ {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Cascading Style Sheets"
+        }, {
+          "correct" : false,
+          "text" : "Computer Style Sheets"
+        }, {
+          "correct" : false,
+          "text" : "Creative Style System"
+        }, {
+          "correct" : false,
+          "text" : "Colorful Style Sheets"
+        } ],
+        "header" : "What does CSS stand for?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "#id"
+        }, {
+          "correct" : false,
+          "text" : ".id"
+        }, {
+          "correct" : false,
+          "text" : "*id"
+        }, {
+          "correct" : false,
+          "text" : "id"
+        } ],
+        "header" : "Which selector targets an element by id?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Content, padding, border, margin"
+        }, {
+          "correct" : false,
+          "text" : "Header, body, footer"
+        }, {
+          "correct" : false,
+          "text" : "Width, height, depth"
+        }, {
+          "correct" : false,
+          "text" : "Color, size, font"
+        } ],
+        "header" : "What is the box model composed of?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "color"
+        }, {
+          "correct" : false,
+          "text" : "text-color"
+        }, {
+          "correct" : false,
+          "text" : "font-color"
+        }, {
+          "correct" : false,
+          "text" : "text-style"
+        } ],
+        "header" : "Which property changes text color?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Creates a flexible layout"
+        }, {
+          "correct" : false,
+          "text" : "Makes text flexible"
+        }, {
+          "correct" : false,
+          "text" : "Hides the element"
+        }, {
+          "correct" : false,
+          "text" : "Changes font size"
+        } ],
+        "header" : "What does 'display: flex' do?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "em"
+        }, {
+          "correct" : false,
+          "text" : "px"
+        }, {
+          "correct" : false,
+          "text" : "cm"
+        }, {
+          "correct" : false,
+          "text" : "in"
+        } ],
+        "header" : "Which unit is relative to font size?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Responsive design"
+        }, {
+          "correct" : false,
+          "text" : "Database queries"
+        }, {
+          "correct" : false,
+          "text" : "Image optimization"
+        }, {
+          "correct" : false,
+          "text" : "Form validation"
+        } ],
+        "header" : "What is media queries used for?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "margin"
+        }, {
+          "correct" : false,
+          "text" : "padding"
+        }, {
+          "correct" : false,
+          "text" : "border"
+        }, {
+          "correct" : false,
+          "text" : "spacing"
+        } ],
+        "header" : "Which property adds space between elements?"
+      } ],
+      "retries" : 3
+    },
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ {
+          "correctQuestions" : 7,
+          "finishTime" : null,
+          "passed" : true,
+          "questionAnswers" : { },
+          "quizId" : 4,
+          "score" : 87.5,
+          "startTime" : null,
+          "status" : null,
+          "userId" : 1,
+          "wrongQuestions" : 0
+        }, {
+          "correctQuestions" : 6,
+          "finishTime" : null,
+          "passed" : true,
+          "questionAnswers" : { },
+          "quizId" : 4,
+          "score" : 75.0,
+          "startTime" : null,
+          "status" : null,
+          "userId" : 1,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : true,
+        "userId" : 1
       }
-    }
-  ],
+    },
+    "title" : "CSS Styling"
+  } ],
   "pending" : false,
   "title" : "Web Development Fundamentals"
-}, {
-  "approved" : true,
-  "approvedBy" : 3,
-  "enrolledStudents" : [ 1 ],
-  "id" : 4,
-  "instructorId" : 2,
-  "lessons" : [
-    {
-      "id": 5,
-      "title": "Calculus Introduction",
-      "content": "An overview of differential and integral calculus. We'll start with limits and derivatives, building the foundation for more advanced topics.",
-      "studentProgress": {
-        "1": {
-          "userId": 1,
-          "lessonComplete": false,
-          "attempts": []
-        }
-      },
-      "quiz": {
-        "id": 5,
-        "retries": 2,
-        "passingScore": 80.0,
-        "questions": [
-          {
-            "header": "What is a derivative?",
-            "choices": [
-              {"text": "Rate of change", "correct": true},
-              {"text": "Area under curve", "correct": false},
-              {"text": "Sum of values", "correct": false},
-              {"text": "Average value", "correct": false}
-            ]
-          },
-          {
-            "header": "What is the derivative of x²?",
-            "choices": [
-              {"text": "2x", "correct": true},
-              {"text": "x", "correct": false},
-              {"text": "x³/3", "correct": false},
-              {"text": "2", "correct": false}
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": 6,
-      "title": "Derivatives and Applications",
-      "content": "Deep dive into derivatives, rules of differentiation, and practical applications in physics, economics, and engineering problems.",
-      "studentProgress": {
-        "1": {
-          "userId": 1,
-          "lessonComplete": false,
-          "attempts": []
-        }
-      },
-      "quiz": null
-    },
-    {
-      "id": 7,
-      "title": "Integration Techniques",
-      "content": "Learn various integration methods including substitution, integration by parts, and partial fractions. Practice with real-world problems.",
-      "studentProgress": {
-        "1": {
-          "userId": 1,
-          "lessonComplete": false,
-          "attempts": []
-        }
-      },
-      "quiz": null
-    },
-    {
-      "id": 8,
-      "title": "Applications of Integration",
-      "content": "Explore how integration is used to calculate areas, volumes, and solve differential equations. Final project included.",
-      "studentProgress": {
-        "1": {
-          "userId": 1,
-          "lessonComplete": true,
-          "attempts": [
-            {
-              "quizId": 8,
-              "userId": 1,
-              "score": 85.0,
-              "correctQuestions": 17,
-              "passed": true
-            }
-          ]
-        }
-      },
-      "quiz": {
-        "id": 8,
-        "retries": 1,
-        "passingScore": 80.0,
-        "questions": [
-          {
-            "header": "What does integration calculate?",
-            "choices": [
-              {"text": "Area under curve", "correct": true},
-              {"text": "Slope of curve", "correct": false},
-              {"text": "Curvature", "correct": false},
-              {"text": "Tangent line", "correct": false}
-            ]
-          },
-          {
-            "header": "What is the integral of 2x?",
-            "choices": [
-              {"text": "x² + C", "correct": true},
-              {"text": "2x² + C", "correct": false},
-              {"text": "x + C", "correct": false},
-              {"text": "2 + C", "correct": false}
-            ]
-          }
-        ]
-      }
-    }
-  ],
-  "pending" : false,
-  "title" : "Advanced Mathematics"
 }, {
   "approved" : false,
   "approvedBy" : null,
   "enrolledStudents" : [ ],
   "id" : 5,
   "instructorId" : 2,
-  "lessons" : [
-    {
-      "id": 9,
-      "title": "Introduction to Data Analysis",
-      "content": "Learn the basics of data analysis and how to work with datasets using Python and pandas.",
-      "studentProgress": {},
-      "quiz": null
-    },
-    {
-      "id": 10,
-      "title": "Data Visualization",
-      "content": "Explore different data visualization techniques and tools to present data effectively.",
-      "studentProgress": {},
-      "quiz": null
-    }
-  ],
+  "lessons" : [ {
+    "content" : "Learn the basics of data analysis and how to work with datasets using Python and pandas.",
+    "id" : 9,
+    "quiz" : null,
+    "studentProgress" : { },
+    "title" : "Introduction to Data Analysis"
+  }, {
+    "content" : "Explore different data visualization techniques and tools to present data effectively.",
+    "id" : 10,
+    "quiz" : null,
+    "studentProgress" : { },
+    "title" : "Data Visualization"
+  } ],
   "pending" : true,
   "title" : "Data Science Fundamentals"
 }, {
@@ -483,29 +499,230 @@
   "enrolledStudents" : [ ],
   "id" : 6,
   "instructorId" : 2,
-  "lessons" : [
-    {
-      "id": 11,
-      "title": "Introduction to React Native",
-      "content": "Get started with React Native and learn how to build cross-platform mobile applications.",
-      "studentProgress": {},
-      "quiz": null
-    },
-    {
-      "id": 12,
-      "title": "UI Components and Navigation",
-      "content": "Learn about React Native components and how to implement navigation between screens.",
-      "studentProgress": {},
-      "quiz": null
-    },
-    {
-      "id": 13,
-      "title": "Working with APIs",
-      "content": "Connect your mobile app to backend services and handle API requests and responses.",
-      "studentProgress": {},
-      "quiz": null
-    }
-  ],
+  "lessons" : [ {
+    "content" : "Get started with React Native and learn how to build cross-platform mobile applications.",
+    "id" : 11,
+    "quiz" : null,
+    "studentProgress" : { },
+    "title" : "Introduction to React Native"
+  }, {
+    "content" : "Learn about React Native components and how to implement navigation between screens.",
+    "id" : 12,
+    "quiz" : null,
+    "studentProgress" : { },
+    "title" : "UI Components and Navigation"
+  }, {
+    "content" : "Connect your mobile app to backend services and handle API requests and responses.",
+    "id" : 13,
+    "quiz" : null,
+    "studentProgress" : { },
+    "title" : "Working with APIs"
+  } ],
   "pending" : true,
   "title" : "Mobile App Development"
-}]
+}, {
+  "approved" : false,
+  "approvedBy" : null,
+  "enrolledStudents" : [ 5 ],
+  "id" : 7,
+  "instructorId" : 4,
+  "lessons" : [ {
+    "content" : "l;fja;df",
+    "id" : 14,
+    "quiz" : null,
+    "studentProgress" : {
+      "5" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 5
+      }
+    },
+    "title" : "lesson1"
+  }, {
+    "content" : "dgsfg",
+    "id" : 15,
+    "quiz" : null,
+    "studentProgress" : {
+      "5" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 5
+      }
+    },
+    "title" : "lesson2"
+  } ],
+  "pending" : true,
+  "title" : "prog"
+}, {
+  "approved" : true,
+  "approvedBy" : 3,
+  "enrolledStudents" : [ 1, 5 ],
+  "id" : 4,
+  "instructorId" : 2,
+  "lessons" : [ {
+    "content" : "An overview of differential and integral calculus. We'll start with limits and derivatives, building the foundation for more advanced topics.",
+    "id" : 5,
+    "quiz" : {
+      "id" : 5,
+      "passingScore" : 80.0,
+      "questions" : [ {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Rate of change"
+        }, {
+          "correct" : false,
+          "text" : "Area under curve"
+        }, {
+          "correct" : false,
+          "text" : "Sum of values"
+        }, {
+          "correct" : false,
+          "text" : "Average value"
+        } ],
+        "header" : "What is a derivative?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "2x"
+        }, {
+          "correct" : false,
+          "text" : "x"
+        }, {
+          "correct" : false,
+          "text" : "x³/3"
+        }, {
+          "correct" : false,
+          "text" : "2"
+        } ],
+        "header" : "What is the derivative of x²?"
+      } ],
+      "retries" : 2
+    },
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 1
+      },
+      "5" : {
+        "attempts" : [ {
+          "correctQuestions" : 2,
+          "finishTime" : "2025-11-23T10:50:57.0981159",
+          "passed" : true,
+          "questionAnswers" : {
+            "0" : 0,
+            "1" : 0
+          },
+          "quizId" : 5,
+          "score" : 100.0,
+          "startTime" : "2025-11-23T10:50:36.8273834",
+          "status" : "finished",
+          "userId" : 5,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : true,
+        "userId" : 5
+      }
+    },
+    "title" : "Calculus Introduction"
+  }, {
+    "content" : "Deep dive into derivatives, rules of differentiation, and practical applications in physics, economics, and engineering problems.",
+    "id" : 6,
+    "quiz" : null,
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 1
+      },
+      "5" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 5
+      }
+    },
+    "title" : "Derivatives and Applications"
+  }, {
+    "content" : "Learn various integration methods including substitution, integration by parts, and partial fractions. Practice with real-world problems.",
+    "id" : 7,
+    "quiz" : null,
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 1
+      },
+      "5" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 5
+      }
+    },
+    "title" : "Integration Techniques"
+  }, {
+    "content" : "Explore how integration is used to calculate areas, volumes, and solve differential equations. Final project included.",
+    "id" : 8,
+    "quiz" : {
+      "id" : 8,
+      "passingScore" : 80.0,
+      "questions" : [ {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "Area under curve"
+        }, {
+          "correct" : false,
+          "text" : "Slope of curve"
+        }, {
+          "correct" : false,
+          "text" : "Curvature"
+        }, {
+          "correct" : false,
+          "text" : "Tangent line"
+        } ],
+        "header" : "What does integration calculate?"
+      }, {
+        "choices" : [ {
+          "correct" : true,
+          "text" : "x² + C"
+        }, {
+          "correct" : false,
+          "text" : "2x² + C"
+        }, {
+          "correct" : false,
+          "text" : "x + C"
+        }, {
+          "correct" : false,
+          "text" : "2 + C"
+        } ],
+        "header" : "What is the integral of 2x?"
+      } ],
+      "retries" : 1
+    },
+    "studentProgress" : {
+      "1" : {
+        "attempts" : [ {
+          "correctQuestions" : 17,
+          "finishTime" : null,
+          "passed" : true,
+          "questionAnswers" : { },
+          "quizId" : 8,
+          "score" : 85.0,
+          "startTime" : null,
+          "status" : null,
+          "userId" : 1,
+          "wrongQuestions" : 0
+        } ],
+        "lessonComplete" : true,
+        "userId" : 1
+      },
+      "5" : {
+        "attempts" : [ ],
+        "lessonComplete" : false,
+        "userId" : 5
+      }
+    },
+    "title" : "Applications of Integration"
+  } ],
+  "pending" : false,
+  "title" : "Advanced Mathematics"
+} ]
