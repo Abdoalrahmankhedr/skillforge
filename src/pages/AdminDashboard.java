@@ -22,9 +22,21 @@ public class AdminDashboard extends JPanel {
     private static JButton viewApprovedBtn;
     private static JButton viewRejectedBtn;
 
+    // Dynamic logged-in admin ID
+    private static int loggedInAdminId;
+    private static String loggedInAdminName;
+
     private AdminDashboard() {
         initComponents();
         instance = this;
+    }
+
+    public static void setAdmin(int adminId, String adminName) {
+        loggedInAdminId = adminId;
+        loggedInAdminName = adminName;
+        if (adminLabel != null) {
+            adminLabel.setText("Admin: " + loggedInAdminName);
+        }
     }
 
     private void initComponents() {
@@ -78,7 +90,7 @@ public class AdminDashboard extends JPanel {
         // Admin info & buttons
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(new Color(51, 153, 255));
-        adminLabel = new JLabel("Admin: SuperAdmin");
+        adminLabel = new JLabel("Admin: " + (loggedInAdminName != null ? loggedInAdminName : "SuperAdmin"));
         adminLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         adminLabel.setForeground(Color.BLACK);
 
@@ -210,7 +222,7 @@ public class AdminDashboard extends JPanel {
         approveBtn.setFocusPainted(false);
         approveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         approveBtn.addActionListener(e -> {
-            AdminService.approveCourse(course.getId());
+            AdminService.approveCourse(course.getId(), loggedInAdminId);
             JOptionPane.showMessageDialog(null, "Course approved successfully");
             showPendingCourses();
         });
@@ -221,7 +233,7 @@ public class AdminDashboard extends JPanel {
         rejectBtn.setFocusPainted(false);
         rejectBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         rejectBtn.addActionListener(e -> {
-            AdminService.rejectCourse(course.getId());
+            AdminService.rejectCourse(course.getId(), loggedInAdminId);
             JOptionPane.showMessageDialog(null, "Course rejected successfully");
             showPendingCourses();
         });
@@ -241,7 +253,8 @@ public class AdminDashboard extends JPanel {
         return card;
     }
 
-    public static void start() {
+    public static void start(int adminId, String adminName) {
+        setAdmin(adminId, adminName);
         if (instance == null) instance = new AdminDashboard();
         MainWindow.addPage("admin", instance);
         MainWindow.goTo("admin");

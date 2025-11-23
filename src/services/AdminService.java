@@ -8,16 +8,17 @@ import java.util.stream.Collectors;
 
 public class AdminService {
 
-    private static final CourseDatabase courseDb = CourseDatabase.getInstance();
-    private static final int adminId = 1; // SuperAdmin ID
+    private static CourseDatabase courseDb = CourseDatabase.getInstance();
 
-    /** Get all pending courses */
+    // Courses Management
+
+    /** Get all pending courses that need admin review */
     public static List<Course> getPendingCourses() {
         return courseDb.getPendingCourses();
     }
 
-    /** Approve a pending course */
-    public static void approveCourse(int courseId) {
+    /** Approve a pending course with dynamic admin ID */
+    public static void approveCourse(int courseId, int adminId) {
         Course course = courseDb.getCourseById(courseId);
         if (course != null && course.isPending()) {
             course.setApproved(true);
@@ -27,8 +28,8 @@ public class AdminService {
         }
     }
 
-    /** Reject a pending course */
-    public static void rejectCourse(int courseId) {
+    /** Reject a pending course with dynamic admin ID */
+    public static void rejectCourse(int courseId, int adminId) {
         Course course = courseDb.getCourseById(courseId);
         if (course != null && course.isPending()) {
             course.setApproved(false);
@@ -51,12 +52,12 @@ public class AdminService {
     }
 
     /** Delete a course */
-    public static void deleteCourse(int courseId) {
+    public void deleteCourse(int courseId) {
         courseDb.deleteCourse(courseId);
     }
 
     /** Get course by ID */
-    public static Course getCourseById(int courseId) {
+    public Course getCourseById(int courseId) {
         return courseDb.getCourseById(courseId);
     }
 }
