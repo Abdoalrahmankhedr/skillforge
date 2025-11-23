@@ -6,6 +6,7 @@ public class Main {
         /* Pages */
         MainWindow.addPage("login", new LoginPage());
         MainWindow.addPage("signup", new SignupPage());
+        MainWindow.addPage("admin", new AdminDashboard());
 
         /* Student Frames */
         MainWindow.addPage("StudentDashBoard", new StudentDashBoard());
@@ -22,7 +23,7 @@ public class Main {
         MainWindow.nameWindow("SkillForge");
         MainWindow.addIcon("src/resources/icon.png");
         // If resizing the window is needed, uncomment the line below
-        // MainWindow.setDimensions(800, 600);
+         MainWindow.setDimensions(1300, 700);
         MainWindow.goTo("login");
         MainWindow.start();
     }

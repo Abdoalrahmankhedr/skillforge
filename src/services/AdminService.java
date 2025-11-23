@@ -1,14 +1,23 @@
 package services;
 
 import databases.CourseDatabase;
+import databases.UserDatabase;
 import models.Course;
+import models.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdminService {
 
-    private static CourseDatabase courseDb = CourseDatabase.getInstance();
+    private static final CourseDatabase courseDb = CourseDatabase.getInstance();
+    private static final UserDatabase userDb = UserDatabase.getInstance();
+
+    /** Get Admin Model */
+    public static User getAdmin(int id) {
+        User user = userDb.getUserById(id);
+        return (user.getRole().equalsIgnoreCase("Admin")) ? user : null;
+    }
 
     // Courses Management
 
@@ -17,25 +26,29 @@ public class AdminService {
         return courseDb.getPendingCourses();
     }
 
-    /** Approve a pending course with dynamic admin ID */
-    public static void approveCourse(int courseId, int adminId) {
-        Course course = courseDb.getCourseById(courseId);
-        if (course != null && course.isPending()) {
-            course.setApproved(true);
-            course.setPending(false);
-            course.setApprovedBy(adminId);
-            courseDb.updateCourse(course);
+    /** Approve a pending course */
+    public static void approveCourse(int adminId, int courseId) {
+        if (getAdmin(adminId) != null) {
+            Course course = courseDb.getCourseById(courseId);
+            if (course != null && course.isPending()) {
+                course.setApproved(true);
+                course.setPending(false);
+                course.setApprovedBy(adminId);
+                courseDb.updateCourse(course);
+            }
         }
     }
 
-    /** Reject a pending course with dynamic admin ID */
-    public static void rejectCourse(int courseId, int adminId) {
-        Course course = courseDb.getCourseById(courseId);
-        if (course != null && course.isPending()) {
-            course.setApproved(false);
-            course.setPending(false);
-            course.setApprovedBy(adminId);
-            courseDb.updateCourse(course);
+    /** Reject a pending course */
+    public static void rejectCourse(int adminId, int courseId) {
+        if (getAdmin(adminId) != null) {
+            Course course = courseDb.getCourseById(courseId);
+            if (course != null && course.isPending()) {
+                course.setApproved(false);
+                course.setPending(false);
+                course.setApprovedBy(adminId);
+                courseDb.updateCourse(course);
+            }
         }
     }
 
@@ -49,11 +62,6 @@ public class AdminService {
         return courseDb.getRecords().stream()
                 .filter(c -> !c.isApproved() && !c.isPending())
                 .collect(Collectors.toList());
-    }
-
-    /** Delete a course */
-    public void deleteCourse(int courseId) {
-        courseDb.deleteCourse(courseId);
     }
 
     /** Get course by ID */

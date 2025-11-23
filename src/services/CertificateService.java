@@ -1,6 +1,7 @@
 package services;
 
 import databases.CourseDatabase;
+import databases.UserDatabase;
 import models.*;
 import services.CourseService;
 import services.InstructorService;
@@ -129,14 +130,16 @@ public class CertificateService {
                 // Course ID
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-                String courseIdLabel = "Course ID:";
+                String courseIdLabel = "Course:";
                 contentStream.newLineAtOffset(150, 300);
                 contentStream.showText(courseIdLabel);
                 contentStream.endText();
 
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA, 14);
-                String courseIdValue = String.valueOf(certificate.getCourseId());
+                String courseIdValue = String.valueOf(
+                        CourseDatabase.getInstance().getCourseById(certificate.getCourseId()).getTitle()
+                );
                 contentStream.newLineAtOffset(300, 300);
                 contentStream.showText(courseIdValue);
                 contentStream.endText();
@@ -144,14 +147,16 @@ public class CertificateService {
                 // User ID
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-                String userIdLabel = "User ID:";
+                String userIdLabel = "User:";
                 contentStream.newLineAtOffset(150, 270);
                 contentStream.showText(userIdLabel);
                 contentStream.endText();
 
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA, 14);
-                String userIdValue = String.valueOf(certificate.getUserId());
+                String userIdValue = String.valueOf(
+                        UserDatabase.getInstance().getUserById(certificate.getUserId()).getName()
+                );
                 contentStream.newLineAtOffset(300, 270);
                 contentStream.showText(userIdValue);
                 contentStream.endText();

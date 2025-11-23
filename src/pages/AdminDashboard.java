@@ -2,6 +2,7 @@ package pages;
 
 import databases.CourseDatabase;
 import models.Course;
+import models.User;
 import services.AdminService;
 import services.InstructorService;
 import windows.MainWindow;
@@ -11,7 +12,7 @@ import java.awt.*;
 import java.util.List;
 
 public class AdminDashboard extends JPanel {
-    private static AdminDashboard instance;
+    private static int adminId;
     private static JLabel adminLabel;
     private static JPanel coursesPanel;
     private static JButton logoutButton;
@@ -22,13 +23,8 @@ public class AdminDashboard extends JPanel {
     private static JButton viewApprovedBtn;
     private static JButton viewRejectedBtn;
 
-    // Dynamic logged-in admin ID
-    private static int loggedInAdminId;
-    private static String loggedInAdminName;
-
-    private AdminDashboard() {
+    public AdminDashboard() {
         initComponents();
-        instance = this;
     }
 
     public static void setAdmin(int adminId, String adminName) {
@@ -90,7 +86,8 @@ public class AdminDashboard extends JPanel {
         // Admin info & buttons
         JPanel infoPanel = new JPanel();
         infoPanel.setBackground(new Color(51, 153, 255));
-        adminLabel = new JLabel("Admin: " + (loggedInAdminName != null ? loggedInAdminName : "SuperAdmin"));
+
+        adminLabel = new JLabel("Admin: ");
         adminLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         adminLabel.setForeground(Color.BLACK);
 
@@ -132,7 +129,6 @@ public class AdminDashboard extends JPanel {
         // Button actions
         logoutButton.addActionListener(e -> {
             MainWindow.goTo("login");
-            MainWindow.start();
         });
 
         refreshButton.addActionListener(e -> showPendingCourses());
@@ -222,7 +218,7 @@ public class AdminDashboard extends JPanel {
         approveBtn.setFocusPainted(false);
         approveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         approveBtn.addActionListener(e -> {
-            AdminService.approveCourse(course.getId(), loggedInAdminId);
+            AdminService.approveCourse(adminId, course.getId());
             JOptionPane.showMessageDialog(null, "Course approved successfully");
             showPendingCourses();
         });
@@ -233,7 +229,7 @@ public class AdminDashboard extends JPanel {
         rejectBtn.setFocusPainted(false);
         rejectBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         rejectBtn.addActionListener(e -> {
-            AdminService.rejectCourse(course.getId(), loggedInAdminId);
+            AdminService.rejectCourse(adminId, course.getId());
             JOptionPane.showMessageDialog(null, "Course rejected successfully");
             showPendingCourses();
         });
@@ -253,10 +249,12 @@ public class AdminDashboard extends JPanel {
         return card;
     }
 
-    public static void start(int adminId, String adminName) {
-        setAdmin(adminId, adminName);
-        if (instance == null) instance = new AdminDashboard();
-        MainWindow.addPage("admin", instance);
-        MainWindow.goTo("admin");
+    public static void start(int id) {
+        adminId = id;
+        User admin = AdminService.getAdmin(id);
+
+        if (admin != null) {
+            adminLabel.setText("Admin: " + admin.getName());
+        }
     }
 }
