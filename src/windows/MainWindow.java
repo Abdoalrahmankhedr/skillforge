@@ -1,5 +1,7 @@
 package windows;
 
+import pages.AdminDashboard;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -148,4 +150,5 @@ public class MainWindow {
     public static JFrame getFrame(String name){
         return frames.getOrDefault(name,null);
     }
+
 }

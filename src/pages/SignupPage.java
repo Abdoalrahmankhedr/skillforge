@@ -88,7 +88,7 @@ public class SignupPage extends JPanel {
         form.add(roleLabel, constraints);
 
         /* Role combo box */
-        JComboBox<String> roleComboBox = new JComboBox<>(new String[]{"Student", "Instructor"});
+        JComboBox<String> roleComboBox = new JComboBox<>(new String[]{"Student", "Instructor","Admin"});
         roleComboBox.setPreferredSize(new Dimension(200, 30));
         constraints.gridy = 8;
         form.add(roleComboBox, constraints);
